@@ -1,0 +1,21 @@
+{
+  "name": "banana-front-mock-server",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "server:run": "cd dist && nodemon index.js",
+    "server:build": "tsc -p tsconfig.json",
+    "server": "npm run server:build && npm run server:run"
+  },
+  "dependencies": {
+    "fastify": "^4.26.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.24",
+    "@typescript-eslint/eslint-plugin": "^7.0.2",
+    "@typescript-eslint/parser": "^7.0.2",
+    "nodemon": "^3.1.0",
+    "eslint": "^8.56.0",
+    "typescript": "^5.2.2"
+  }
+}
