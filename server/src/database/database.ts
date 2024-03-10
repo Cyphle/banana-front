@@ -1,4 +1,5 @@
 import { Account } from '../plugins/account/account.types';
+import { mockAccounts } from './accounts';
 
 interface DatabaseData {
   accounts: Account[]
@@ -6,10 +7,7 @@ interface DatabaseData {
 
 export class Database {
   private data: DatabaseData = {
-    accounts: [{
-      id: 1,
-      name: 'Commun CIC'
-    }]
+    accounts: mockAccounts
   }
 
   getAccounts(): Account[] {
