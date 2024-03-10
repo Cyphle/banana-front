@@ -1,5 +1,5 @@
 import { Account } from '../plugins/account/account.types';
-import { mockAccounts } from './accounts';
+import { mockAccounts } from './data/accounts';
 
 interface DatabaseData {
   accounts: Account[]

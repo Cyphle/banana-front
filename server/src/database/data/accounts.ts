@@ -1,4 +1,4 @@
-import { Account } from '../plugins/account/account.types';
+import { Account } from '../../plugins/account/account.types';
 
 export const mockAccounts: Account[] = [
   {
