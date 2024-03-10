@@ -5,7 +5,7 @@ import fastify, {
   FastifyRequest,
   HookHandlerDoneFunction
 } from 'fastify'
-import { accountPlugin } from './api/account/account.controller';
+import { accountPlugin } from './plugins/account/account.plugin';
 
 const server = fastify({
   logger: true
