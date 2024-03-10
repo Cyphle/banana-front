@@ -1,13 +1,17 @@
 import { Account } from '../plugins/account/account.types';
 import { mockAccounts } from './data/accounts';
+import { Profile } from '../plugins/profile/profile.types';
+import { mockProfile } from './data/profile';
 
 interface DatabaseData {
-  accounts: Account[]
+  profile: Profile;
+  accounts: Account[];
 }
 
 export class Database {
   private data: DatabaseData = {
-    accounts: mockAccounts
+    accounts: mockAccounts,
+    profile: mockProfile
   }
 
   getAccounts(): Account[] {
@@ -22,6 +26,10 @@ export class Database {
         account
       ]
     }
+  }
+
+  getMyProfile(): Profile {
+    return this.data.profile
   }
 }
 

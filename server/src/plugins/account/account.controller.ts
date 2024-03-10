@@ -1,7 +1,7 @@
 import { FastifyInstance, FastifyReply } from 'fastify';
 import { CustomFastifyRequest } from '../../fastify.types';
 
-export const accounts = (fastify: FastifyInstance): void => {
+export const getAccounts = (fastify: FastifyInstance): void => {
   fastify.get('/', (request: CustomFastifyRequest, reply: FastifyReply) => {
     fastify.log.info('COUCOU MERDE');
     fastify.log.info(request);
@@ -12,7 +12,9 @@ export const accounts = (fastify: FastifyInstance): void => {
       .header('Content-Type', 'application/json; charset=utf-8')
       .send({ hello: `Accounts of ${request.user} are ${JSON.stringify(request.database?.getAccounts())}` });
   })
+}
 
+export const addAccount = (fastify: FastifyInstance) => {
   fastify.get('/add', (request: CustomFastifyRequest, reply: FastifyReply) => {
     request.database?.addAccount({
       id: 2,
