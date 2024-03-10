@@ -5,12 +5,10 @@ const server = fastify({
   logger: true
 });
 
-
-
-server.decorateRequest('something', null);
+server.decorateRequest('user', null);
 server.addHook('preHandler', (req: FastifyRequest, reply: FastifyReply, done: HookHandlerDoneFunction) => {
   // @ts-ignore
-  req.something = 'John doe'
+  req.user = 'Bob Dylan'
   done()
 })
 
@@ -18,9 +16,12 @@ server.register(routes, {
   prefix: '/foo'
 });
 
-server.get('/ping', async (request: FastifyRequest, reply: FastifyReply) => {
-  // @ts-ignore
-  return `pong user: ${request.user}, somehting: ${request.something}`
+export interface FastifyRequestWithUser extends FastifyRequest {
+  user?: string;
+}
+
+server.get('/ping', async (request: FastifyRequestWithUser, reply: FastifyReply) => {
+  return `pong user: ${request.user}`
 })
 
 const start = async () => {
