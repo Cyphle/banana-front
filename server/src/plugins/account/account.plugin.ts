@@ -1,12 +1,10 @@
 import { FastifyError, FastifyInstance, FastifyPluginOptions, FastifyReply, FastifyRequest } from 'fastify';
-import { FastifyRequestWithUser } from '../../index';
+import { accounts } from './account.controller';
 
 export const accountPlugin = async (fastify: FastifyInstance, options: FastifyPluginOptions) => {
   fastify.setErrorHandler((error: FastifyError, request: FastifyRequest, reply: FastifyReply) => {
     throw error
   })
 
-  fastify.get('/world', async (request: FastifyRequestWithUser, reply: FastifyReply) => {
-    return { hello: `world user: ${request.user}` }
-  })
+  accounts(fastify);
 }
