@@ -1,9 +1,10 @@
 import { accountPlugin } from './plugins/account/account.plugin';
-import { decoreWithUser } from './authentication';
+import { decorateWithUser } from './authentication';
 import { initFastify } from './config/fastify';
+import { decorateWithDatabase } from './database/database.plugin';
 
 const fastify = initFastify(
-  [decoreWithUser],
+  [decorateWithUser, decorateWithDatabase],
   [{ plugin: accountPlugin, routesPrefix: '/accounts' }]
 );
 
