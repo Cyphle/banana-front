@@ -1,10 +1,5 @@
-import { FastifyInstance, FastifyReply, FastifyRequest, HookHandlerDoneFunction } from 'fastify';
-import { Database } from './database/database.plugin';
-
-export interface CustomFastifyRequest extends FastifyRequest {
-  user?: string;
-  database?: Database;
-}
+import { FastifyInstance, FastifyReply, HookHandlerDoneFunction } from 'fastify';
+import { CustomFastifyRequest } from './fastify.types';
 
 export const decorateWithUser = (fastify: FastifyInstance): void => {
   fastify.decorateRequest('user', null);

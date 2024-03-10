@@ -1,5 +1,5 @@
 import { FastifyInstance, FastifyReply } from 'fastify';
-import { CustomFastifyRequest } from '../../authentication';
+import { CustomFastifyRequest } from '../../fastify.types';
 
 export const accounts = (fastify: FastifyInstance): void => {
   fastify.get('/', (request: CustomFastifyRequest, reply: FastifyReply) => {

@@ -1,6 +1,4 @@
 import { Account } from '../plugins/account/account.types';
-import { FastifyInstance, FastifyReply, HookHandlerDoneFunction } from 'fastify';
-import { CustomFastifyRequest } from '../authentication';
 
 interface DatabaseData {
   accounts: Account[]
@@ -29,12 +27,4 @@ export class Database {
   }
 }
 
-const database = new Database();
-
-export const decorateWithDatabase = (fastify: FastifyInstance): void => {
-  fastify.decorateRequest('database', null);
-  fastify.addHook('preHandler', (req: CustomFastifyRequest, reply: FastifyReply, done: HookHandlerDoneFunction) => {
-    req.database = database
-    done()
-  });
-}
+export const database = new Database();
