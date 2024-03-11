@@ -31,4 +31,16 @@ describe('Fastify integration test example', () => {
     expect(status).toBe(200)
     expect(body).toBe('{"hello":"world"}')
   });
+
+  test('another example', (done) => {
+    build()
+      .inject()
+      .get('/')
+      .headers({ foo: 'bar' })
+      .query({ foo: 'bar' })
+      .end((err, res) => {
+        expect(res?.statusCode).toEqual(200);
+        done();
+      });
+  });
 });
