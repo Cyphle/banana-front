@@ -1,25 +1,34 @@
-// 'use strict';
-//
-// import fastify from 'fastify';
-//
-// function build(opts={}) {
-//   const app = fastify(opts)
-//   app.get('/', async function (request, reply) {
-//     return { hello: 'world' }
-//   })
-//
-//   return app
-// }
-//
-// const test = async () => {
-//   const app = build()
-//
-//   const response = await app.inject({
-//     method: 'GET',
-//     url: '/'
-//   })
-//
-//   console.log('status code: ', response.statusCode)
-//   console.log('body: ', response.body)
-// }
-// test()
+'use strict';
+
+import fastify from 'fastify';
+import { describe, expect, test } from '@jest/globals';
+
+function build(opts = {}) {
+  const app = fastify(opts)
+  app.get('/', async function (request, reply) {
+    return { hello: 'world' }
+  })
+
+  return app
+}
+
+describe('Fastify integration test example', () => {
+  const fakeApp = async (): Promise<{ status: number, body: string }> => {
+    const app = build()
+
+    const response = await app.inject({
+      method: 'GET',
+      url: '/'
+    })
+
+    console.log('status code: ', response.statusCode)
+    console.log('body: ', response.body)
+    return Promise.resolve({ status: response.statusCode, body: response.body });
+  }
+
+  test('should return 200 status code and "hello world" body', async () => {
+    const { status, body } = await fakeApp()
+    expect(status).toBe(200)
+    expect(body).toBe('{"hello":"world"}')
+  });
+});
