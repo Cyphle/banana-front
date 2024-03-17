@@ -35,3 +35,6 @@ export default {
 - https://tailwindcss.com/docs/customizing-colors
 - https://testing-library.com/docs/react-testing-library/intro/
 - https://tanstack.com/query/v3/docs/framework/react/overview (Soon)
+
+## Mock server
+Based on Fastify
