@@ -1,4 +1,5 @@
 import fastify, { FastifyInstance, FastifyPluginOptions } from 'fastify';
+import cors from '@fastify/cors'
 
 export const initFastify = (
   decorators: ((fastify: FastifyInstance) => void)[] = [],
@@ -7,6 +8,8 @@ export const initFastify = (
   const server = fastify({
     logger: true
   });
+
+  server.register(cors, {});
 
   decorators.forEach(decorator => decorator(server));
 
