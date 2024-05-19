@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
+import { NavLink } from 'react-router-dom';
 
 export const Menu = () => {
   // State to manage the navbar's visibility
@@ -13,14 +14,50 @@ export const Menu = () => {
   // Array containing navigation items
   const navItems = [
     { id: 1, text: 'Home' },
-    { id: 2, text: 'Company' },
-    { id: 3, text: 'Resources' },
-    { id: 4, text: 'About' },
-    { id: 5, text: 'Contact' },
+    { id: 2, text: 'My Accounts' },
+    { id: 3, text: 'My Profile' }
   ];
 
   return (
     <div className='bg-black flex justify-between items-center h-24 max-w-[1240px] mx-auto px-4 text-white'>
+      <NavLink
+        to='/'
+        className={ ({ isActive, isPending }) =>
+          isActive
+            ? 'active'
+            : isPending
+              ? 'pending'
+              : ''
+        }
+      >
+        HOME
+      </NavLink>
+      <NavLink
+        to='/accounts'
+        className={ ({ isActive, isPending }) =>
+          isActive
+            ? 'active'
+            : isPending
+              ? 'pending'
+              : ''
+        }
+      >
+        Accounts
+      </NavLink>
+      <NavLink
+        to='/profile'
+        className={ ({ isActive, isPending }) =>
+          isActive
+            ? 'active'
+            : isPending
+              ? 'pending'
+              : ''
+        }
+      >
+        Profile
+      </NavLink>
+
+
       {/* Logo */}
       <h1 className='w-full text-3xl font-bold text-[#00df9a]'>REACT.</h1>
 

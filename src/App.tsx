@@ -3,6 +3,11 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.scss'
 import { Menu } from './shared/menu/Menu.tsx';
+import { Outlet } from 'react-router-dom';
+
+export async function appLoader() {
+  return { };
+}
 
 function App() {
   const [count, setCount] = useState(0)
@@ -10,6 +15,9 @@ function App() {
   return (
     <>
       <Menu></Menu>
+
+      <Outlet/>
+
       <div>
         <a href="https://vitejs.dev" target="_blank">
           <img src={ viteLogo } className="logo" alt="Vite logo"/>
