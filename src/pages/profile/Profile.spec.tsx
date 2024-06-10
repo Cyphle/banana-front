@@ -1,9 +1,9 @@
-import { render as testingLibraryRender } from '@testing-library/react';
+import { render } from '../../../test-utils/render.tsx';
 import { Profile } from './Profile.tsx';
 
 describe('Profile', () => {
   it('should render', () => {
-    const { container } = testingLibraryRender(<Profile/>);
+    const { container } = render(<Profile />);
 
     expect(container).toMatchInlineSnapshot(`
       <div>
