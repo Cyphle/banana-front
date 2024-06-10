@@ -1,5 +1,11 @@
 # React + TypeScript + Vite
 
+## TODO
+- test exemple of query `export const renderQueryHook` (cf `useFetchAssetsOfAssetType`)
+- test example of react query mutation `renderMutateHook` (cf `useCreateExternalIdentifier`)
+- use context (user context for example and test it `renderContextHook` (cf `userContext` or `clientContext`)
+- 
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:

@@ -62,24 +62,3 @@ export const renderMutateHook = <TData, TError, TVariables, TContext>(hook: () =
 //
 //   return testingLibraryRenderHook(hook, { wrapper });
 // }
-
-// export function renderWithAppShell(ui: React.ReactNode) {
-//   const rendered = testingLibraryRender(<>{ui}</>, {
-//     wrapper: ({ children }: { children: React.ReactNode }) => (
-//       <MantineProvider theme={StonalTheme}>
-//         <ThemeProvider theme={StonalTheme}>
-//             <AppShell>
-//               <div data-testid="test-container">
-//                 {children}
-//               </div>
-//             </AppShell>
-//         </ThemeProvider>
-//       </MantineProvider>
-//     ),
-//   });
-//   return {
-//     ...rendered,
-//     container: Array.from(getByTestId(rendered.container, "test-container").children)
-//       .filter(e => e.tagName !== "STYLE")[0]
-//   };
-// }

@@ -1,13 +1,15 @@
-import { useQuery } from 'react-query';
 import { getAccounts } from '../../services/accounts.service.ts';
+import { useNavigate } from 'react-router';
+import { useQuery } from '@tanstack/react-query';
 
 export const Accounts = () => {
-  const { isLoading, isError, data, error } = useQuery({
+  const { isPending, isError, data, error } = useQuery({
     queryKey: ['accounts'],
     queryFn: getAccounts
   });
+  const navigate = useNavigate();
 
-  if (isLoading) {
+  if (isPending) {
     return <span>Loading...</span>
   }
 
@@ -23,6 +25,8 @@ export const Accounts = () => {
       {/*{data.map((todo) => (*/}
       {/*  <li key={todo.id}>{todo.title}</li>*/}
       {/*))}*/}
+
+      <div><button onClick={(value) => navigate(`/path/to/the/sky/${value}`)}>Hello world</button></div>
     </>
   )
 }
