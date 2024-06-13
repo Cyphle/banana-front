@@ -32,7 +32,6 @@ export const render = (ui: React.ReactNode) => {
   };
 };
 
-// TODO TO clean if not used in tests
 export const renderQueryHook = (hook: () => UseQueryResult) => {
   const queryClient = new QueryClient();
   const wrapper = ({ children }: PropsWithChildren) => <QueryClientProvider

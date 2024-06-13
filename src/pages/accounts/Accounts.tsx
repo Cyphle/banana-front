@@ -1,12 +1,8 @@
-import { getAccounts } from '../../services/accounts.service.ts';
 import { useNavigate } from 'react-router';
-import { useQuery } from '@tanstack/react-query';
+import { useFetchAccounts } from '../../stores/accounts/accounts.queries.ts';
 
-export const Accounts = () => {
-  const { isPending, isError, data, error } = useQuery({
-    queryKey: ['accounts'],
-    queryFn: getAccounts
-  });
+export const AccountsPage = () => {
+  const { isPending, isError, data, error } = useFetchAccounts();
   const navigate = useNavigate();
 
   if (isPending) {
@@ -19,14 +15,16 @@ export const Accounts = () => {
 
   // We can assume by this point that `isSuccess === true`
   return (
-    <>
+    <div>
       My accounts
-      {JSON.stringify(data)}
-      {/*{data.map((todo) => (*/}
-      {/*  <li key={todo.id}>{todo.title}</li>*/}
-      {/*))}*/}
+      { JSON.stringify(data) }
+      {/*{data.map((todo) => (*/ }
+      {/*  <li key={todo.id}>{todo.title}</li>*/ }
+      {/*))}*/ }
 
-      <div><button onClick={(value) => navigate(`/path/to/the/sky/${value}`)}>Hello world</button></div>
-    </>
+      <div>
+        <button onClick={ (value) => navigate(`/path/to/the/sky/${ value }`) }>Hello world</button>
+      </div>
+    </div>
   )
 }
