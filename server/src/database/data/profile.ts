@@ -1,7 +1,0 @@
-export const mockProfile = {
-  id: 1,
-  username: 'john.doe',
-  firstName: 'John',
-  lastName: 'Doe',
-  email: 'john.doe@banana.fr'
-}
