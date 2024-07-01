@@ -6,6 +6,7 @@ import { describe, expect, test } from '@jest/globals';
 function build(opts = {}) {
   const app = fastify(opts)
   app.get('/accounts', async function (request, reply) {
+    console.log('caca');
     return [{ id: 1, name: 'Account 2' }]
   });
 
@@ -13,13 +14,15 @@ function build(opts = {}) {
 }
 
 describe('Account controller', () => {
-  test('should get accounts', (done) => {
+  test('should get accounts', done => {
     build()
       .inject()
-      .get('/')
+      .get('/accounts')
       .end((err, res) => {
+        console.log('coucou');
+        console.log(res?.body)
         expect(res?.statusCode).toEqual(200);
-        expect(res?.body).toEqual('[{"id":1,"name":"Account 1"}]');
+        expect(res?.body).toEqual('[{"id":1,"name":"Account 2"}]');
         done();
       });
   });

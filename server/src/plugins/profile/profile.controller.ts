@@ -6,6 +6,16 @@ export const getMyProfile = (fastify: FastifyInstance): void => {
     reply
       .code(200)
       .header('Content-Type', 'application/json; charset=utf-8')
-      .send({ profile: request.database?.getMyProfile() });
+      .send({ profile: request.database?.readOneById('profiles', 1) });
+  })
+}
+
+export const getMyProfileExample = (fastify: FastifyInstance): void => {
+  fastify.get('/', (request: CustomFastifyRequest, reply: FastifyReply) => {
+    console.log(request.database);
+    reply
+      .code(200)
+      .header('Content-Type', 'application/json; charset=utf-8')
+      .send({ profile: { id: 1, name: 'My profile'} });
   })
 }
