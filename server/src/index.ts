@@ -1,6 +1,6 @@
 import { accountPlugin } from './plugins/account/account.plugin';
 import { decorateWithUser } from './authentication.decorator';
-import { initFastify } from './config/fastify';
+import { initFastify } from './config/fastify.config';
 import { decorateWithDatabase } from './database/database.decorator';
 import { profilePlugin } from './plugins/profile/profile.plugin';
 

@@ -1,5 +1,3 @@
-import { Account } from '../plugins/account/account.types';
-import { Profile } from '../plugins/profile/profile.types';
 import * as fs from 'fs';
 import path from 'path';
 
@@ -11,10 +9,11 @@ export class Database {
   private data: DatabaseData = {}
   private FOLDER_CONFIG = {
     basePath: '',
-    dataPath: 'data'
+    dataPath: ''
   }
 
-  constructor() {
+  constructor(dataPath: string = 'data') {
+    this.FOLDER_CONFIG.dataPath = dataPath;
     this.hydrate();
   }
 
@@ -30,30 +29,39 @@ export class Database {
     return this.data;
   }
 
-  getAccounts(): Account[] {
-    return this.data.accounts;
+  read<T>(tableName: string): T[] {
+    return this.data[tableName];
   }
 
-  addAccount(account: Account) {
-    this.data = {
-      ...this.data,
-      accounts: [
-        ...this.data.accounts,
-        account
-      ]
-    }
+  readOneById<T>(tableName: string, id: number): T {
+    return this.data[tableName].find((element: T) => {
+      // @ts-ignore
+      return element.id === id;
+    });
   }
 
-  getMyProfile(): Profile {
-    // return this.data.profile
-    return {
-      'id': 1,
-      'username': 'john.doe',
-      'firstName': 'John',
-      'lastName': 'Doe',
-      'email': 'john.doe@banana.fr'
-    };
+  create<T>(tableName: string, item: T) {
+    const table = this.data[tableName];
+    const id = table.length ? table[table.length - 1].id + 1 : 1;
+    this.data[tableName] = [
+      ...table,
+      {
+        id,
+        ...item
+      }
+    ];
+  }
+
+  update<T>(tableName: string, id: number, item: T) {
+    this.data[tableName] = this.data[tableName].map((element: T) => {
+      // @ts-ignore
+      return element.id === id ? { id, ...item } : element;
+    });
+  }
+
+  delete(tableName: string, id: number) {
+    this.data[tableName] = this.data[tableName].filter((element: any) => {
+      return element.id !== id;
+    });
   }
 }
-
-export const database = new Database();

@@ -2,7 +2,8 @@
 
 ## TODO
 - test exemple of query `export const renderQueryHook` (cf `useFetchAssetsOfAssetType`) > OK
-- test example of react query mutation `renderMutateHook` (cf `useCreateExternalIdentifier`)
+- test example of react query mutation `renderMutateHook` (cf `useCreateExternalIdentifier`). Il faudrait une page pour créer un compte par exemple. 
+On peut mixer https://reactrouter.com/en/main/start/tutorial#data-writes--html-forms et les react query mutation
 - use context (user context for example and test it `renderContextHook` (cf `userContext` or `clientContext`)
 - test https://ui.shadcn.com/docs/components/accordion https://ui.shadcn.com/docs/installation/vite
 

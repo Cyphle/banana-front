@@ -1,6 +1,6 @@
 import { FastifyInstance, FastifyReply, HookHandlerDoneFunction } from 'fastify';
-import { database } from './database';
 import { CustomFastifyRequest } from '../fastify.types';
+import { database } from '../config/database.config';
 
 export const decorateWithDatabase = (fastify: FastifyInstance): void => {
   fastify.log.info('Decorating with database');
