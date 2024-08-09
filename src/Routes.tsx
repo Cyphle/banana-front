@@ -36,4 +36,5 @@ const ROUTES = [
   },
 ]
 
+// @ts-ignore
 export const Router = createBrowserRouter(ROUTES);
