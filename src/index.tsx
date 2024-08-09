@@ -7,6 +7,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { RouterProvider } from 'react-router-dom';
 
 const container = document.querySelector('#root');
+// @ts-ignore
 const root = createRoot(container);
 
 root.render(

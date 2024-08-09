@@ -1,4 +1,5 @@
 import './Home.scss';
+import { Button } from 'antd';
 
 export const Home = () => {
   return (
@@ -10,7 +11,7 @@ export const Home = () => {
 
       <div>
         <div className="test">
-          S'inscrire
+          <Button type="primary">S'inscrire</Button>
         </div>
       </div>
     </div>
