@@ -1,10 +1,17 @@
-import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { Main } from './main';
-import './index.css'
-
+import './index.scss'
+import { queryClient } from './react-query.config.ts';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { Router } from './Routes.tsx';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { RouterProvider } from 'react-router-dom';
 
 const container = document.querySelector('#root');
 const root = createRoot(container);
 
-root.render(<Main />);
+root.render(
+  <QueryClientProvider client={queryClient}>
+    <RouterProvider router={ Router }/>
+    <ReactQueryDevtools initialIsOpen={false} />
+  </QueryClientProvider>,
+);
