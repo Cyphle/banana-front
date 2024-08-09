@@ -4,7 +4,7 @@ import {
   render as testingLibraryRender,
   renderHook as testingLibraryRenderHook
 } from '@testing-library/react';
-import React, { PropsWithChildren } from 'react';
+import { PropsWithChildren } from 'react';
 import {
   QueryClient,
   QueryClientProvider,
