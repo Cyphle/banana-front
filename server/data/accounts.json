@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "name": "Commun CIC",
+    "type": "SHARED",
+    "balance": 110.0,
+    "projectedBalance": 100.0
+  },
+  {
+    "id": 2,
+    "name": "Boursobank",
+    "type": "PERSONAL",
+    "balance": 220.0,
+    "projectedBalance": 200.0
+  },
+  {
+    "id": 3,
+    "name": "Boursobank Livret+",
+    "type": "SAVING",
+    "balance": 330.0,
+    "projectedBalance": 300.0
+  }
+]
