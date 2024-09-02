@@ -7,14 +7,16 @@ header {
   height: 60px;
   background-color: $main-color;
   @include default-shadow;
+  padding: 0 10px;
+  color: $second-text-color;
 
   .banana-title {
     display: flex;
     align-items: center;
     gap: 5px;
 
-    img {
-      max-width: 100%;
+    svg {
+      color: white;
     }
   }
 }

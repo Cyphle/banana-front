@@ -1,5 +1,4 @@
 import { createRoot } from 'react-dom/client';
-import './index.scss'
 import { queryClient } from './react-query.config.ts';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { Router } from './Routes.tsx';

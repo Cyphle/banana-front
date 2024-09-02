@@ -11,6 +11,9 @@
   },
   "dependencies": {
     "@farmfe/plugin-sass": "^1.1.0",
+    "@fortawesome/fontawesome-svg-core": "^6.6.0",
+    "@fortawesome/free-solid-svg-icons": "^6.6.0",
+    "@fortawesome/react-fontawesome": "^0.2.2",
     "@tanstack/react-query": "^5.51.23",
     "antd": "^5.20.0",
     "i18next": "^23.11.5",
