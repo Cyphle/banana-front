@@ -1,10 +1,12 @@
 import { useNavigate } from 'react-router';
 import { useFetchAccounts } from '../../stores/accounts/accounts.queries.ts';
+import { Account } from '../../stores/accounts/accounts.type.ts';
 
 export const AccountsPage = () => {
   const { isPending, isError, data, error } = useFetchAccounts();
   const navigate = useNavigate();
 
+  // TODO il faut faire un high order component avec template pour faire du UI skeleton avec is loading et is error
   if (isPending) {
     return <span>Loading...</span>
   }
@@ -13,30 +15,36 @@ export const AccountsPage = () => {
     return <span>Error: { error.message }</span>
   }
 
-  // We can assume by this point that `isSuccess === true`
   return (
     <div>
-      Here are some indicators
-      <ul>
-        <li>Liste des comptes avec leur nom et solde courant et projeté</li>
-        <li>Dernières opérations sur les 3 derniers jours</li>
-        <li>Montant restant, projetés et débits à venir</li>
+      <section>
+        <div className="indicator">
+          <span className="indicator__label">Total montants courants</span>
+          <span className="indicator__value">1000€</span>
+        </div>
+        <div className="indicator">
+          <span className="indicator__label">Total montants projetés</span>
+          <span className="indicator__value">1000€</span>
+        </div>
+        <div className="indicator">
+          <span className="indicator__label">Total épargnes</span>
+          <span className="indicator__value">1000€</span>
+        </div>
+      </section>
+
+      <h1>Mes comptes</h1>
+
+      <ul className="accounts">
+        { (data as Account[]).map((account: Account) => (
+          <li key={ account.id }>
+            <span>{ account.name }</span>
+            <span>{ account.balance }</span>
+            <span>{ account.projectedBalance }</span>
+            <button onClick={ () => navigate(`/accounts/${ account.id }`) }>Go</button>
+          </li>
+        ))
+        }
       </ul>
-
-      Il faut
-      <ul>
-        <li>Un bouton "créer un suivi de compte bancaire"</li>
-      </ul>
-
-      My accounts
-      { JSON.stringify(data) }
-      {/*{data.map((todo) => (*/ }
-      {/*  <li key={todo.id}>{todo.title}</li>*/ }
-      {/*))}*/ }
-
-      <div>
-        <button onClick={ (value) => navigate(`/path/to/the/sky/${ value }`) }>Hello world</button>
-      </div>
     </div>
   )
 }
