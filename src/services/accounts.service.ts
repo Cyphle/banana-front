@@ -1,16 +1,16 @@
 import { getMany } from '../helpers/http.ts';
-import { Account } from '../stores/accounts/accounts.type.ts';
+import { AccountSummary } from '../stores/accounts/accounts.type.ts';
 
 // TODO to be tested
-export const getAccounts = (): Promise<Account[]> => {
+export const getAccounts = (): Promise<AccountSummary[]> => {
   return getMany(`accounts`, responseToAccounts)
-    .then((response: Account[]) => {
+    .then((response: AccountSummary[]) => {
       console.log(response);
       return response;
     })
 }
 
-export const responseToAccounts = (data: any): Account[] => {
+export const responseToAccounts = (data: any): AccountSummary[] => {
   return data.map((account: any) => {
     return {
       id: account.id,
