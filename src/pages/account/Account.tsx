@@ -1,6 +1,7 @@
 import { useLoaderData } from 'react-router-dom';
 import { useFetchAccount } from '../../stores/accounts/accounts.queries.ts';
 import { Account, AccountTransaction, RecurrentTransaction } from '../../stores/accounts/accounts.type.ts';
+import { useNavigate } from 'react-router';
 
 interface AccountParams {
   accountId: string;
@@ -18,6 +19,7 @@ export const AccountPage = () => {
   console.log(params);
 
   const { isPending, isError, data, error } = useFetchAccount(parseInt(params.accountId));
+  const navigate = useNavigate();
 
   // // TODO il faut faire un high order component avec template pour faire du UI skeleton avec is loading et is error
   if (isPending) {
@@ -41,12 +43,12 @@ export const AccountPage = () => {
         <button>Dépenses</button>
         <button>Budgets</button>
         <button>Charges</button>
-        <button>Paramètres</button>
+        <button onClick={ () => navigate(`/accounts/${ account.summary.id }/parameters`) }>Paramètres</button>
       </section>
 
       <section className="summary">
         <div className="indicator">
-          <span className="indicator__label">Montant début de mois</span>
+        <span className="indicator__label">Montant début de mois</span>
           <span className="indicator__value">1000€</span>
         </div>
         <div className="indicator">
@@ -60,29 +62,27 @@ export const AccountPage = () => {
       </section>
 
       <section className="expenses">
-
+        <ul>
+          { (account.recurrentTransactions).map((transaction: RecurrentTransaction) => (
+            <li key={ transaction.id }>
+              <span>{ transaction.appliedAt }</span>
+              <span>{ transaction.appliedAt }</span>
+              <span>{ transaction.description }</span>
+              <span>{ transaction.amount }</span>
+            </li>
+          ))
+          }
+          { (account.transactions).map((transaction: AccountTransaction) => (
+            <li key={ transaction.id }>
+              <span>{ transaction.executedAt }</span>
+              <span>{ transaction.appliedAt }</span>
+              <span>{ transaction.description }</span>
+              <span>{ transaction.amount }</span>
+            </li>
+          ))
+          }
+        </ul>
       </section>
-
-      <ul>
-        { (account.recurrentTransactions).map((transaction: RecurrentTransaction) => (
-          <li key={ transaction.id }>
-            <span>{ transaction.appliedAt }</span>
-            <span>{ transaction.appliedAt }</span>
-            <span>{ transaction.description }</span>
-            <span>{ transaction.amount }</span>
-          </li>
-        ))
-        }
-        { (account.transactions).map((transaction: AccountTransaction) => (
-          <li key={ transaction.id }>
-            <span>{ transaction.executedAt }</span>
-            <span>{ transaction.appliedAt }</span>
-            <span>{ transaction.description }</span>
-            <span>{ transaction.amount }</span>
-          </li>
-        ))
-        }
-      </ul>
     </div>
   )
 }
