@@ -6,7 +6,6 @@ export const Menu = () => {
     { id: 1, text: 'Mes comptes', path: '/accounts' },
     { id: 2, text: 'Profil', path: '/profile' },
     { id: 3, text: 'S\'inscrire', path: '/subscribe' },
-    { id: 4, text: 'Account 1 (temp)', path: '/accounts/1' },
   ];
 
   return (

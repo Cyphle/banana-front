@@ -3,8 +3,40 @@
     "id": 1,
     "name": "Commun CIC",
     "type": "SHARED",
+    "date": "2016-01-01",
+    "startingBalance": 100.0,
     "balance": 110.0,
-    "projectedBalance": 100.0
+    "projectedBalance": 100.0,
+    "recurrentTransactions": [
+      {
+        "id": 1,
+        "appliedAt": "2016-01-03",
+        "description": "Loan",
+        "amount": 100.0,
+        "type": "CHARGE",
+        "startDate": "2010-01-01",
+        "endDate": "2030-01-01",
+        "frequency": "MONTHLY"
+      }
+    ],
+    "transactions": [
+      {
+        "id": 1,
+        "executedAt": "2016-01-01",
+        "appliedAt": "2016-01-03",
+        "description": "Opening Balance",
+        "amount": 100.0,
+        "type": "EXPENSE"
+      },
+      {
+        "id": 2,
+        "executedAt": "2016-01-01",
+        "appliedAt": "2016-01-03",
+        "description": "Deposit",
+        "amount": 10.0,
+        "type": "CREDIT"
+      }
+    ]
   },
   {
     "id": 2,
