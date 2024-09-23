@@ -1,14 +1,24 @@
 import { useLoaderData } from 'react-router-dom';
 import { useFetchAccount } from '../../stores/accounts/accounts.queries.ts';
-import { Account, RecurrentTransaction } from '../../stores/accounts/accounts.type.ts';
+import { Account, TransactionType } from '../../stores/accounts/accounts.type.ts';
 import { useNavigate } from 'react-router';
-import { Transactions } from '../../components/transactions/Transactions.tsx';
+import {
+  DisplayableTransaction,
+  filterDisplayableTransactions,
+  Transactions
+} from '../../components/transactions/Transactions.tsx';
+import {
+  fromAccountTransactionsToDisplayableTransactions,
+  fromRecurrentTransactionsToDisplayableTransactions
+} from '../../helpers/transaction.ts';
+import { AccountIndicators } from '../../components/account-indicators/AccountIndicators.tsx';
+import { useEffect, useState } from 'react';
 
 interface AccountParams {
   accountId: string;
 }
 
-export async function accountParamsLoader({ params }: { params: { [key: string]: string }}): Promise<AccountParams> {
+export async function accountParamsLoader({ params }: { params: { [key: string]: string } }): Promise<AccountParams> {
   return {
     accountId: params.id
   };
@@ -17,10 +27,22 @@ export async function accountParamsLoader({ params }: { params: { [key: string]:
 // TODO to be tested
 export const AccountPage = () => {
   const params = useLoaderData() as AccountParams;
-  console.log(params);
-
+  const [transactions, setTransactions] = useState<DisplayableTransaction[]>([]);
+  const [displayableTransactions, setDisplayableTransactions] = useState<DisplayableTransaction[]>([]);
   const { isPending, isError, data, error } = useFetchAccount(parseInt(params.accountId));
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isPending && !isError) {
+      const account = data as Account;
+      const transactions = [
+        ...fromRecurrentTransactionsToDisplayableTransactions(account.recurrentTransactions),
+        ...fromAccountTransactionsToDisplayableTransactions(account.transactions),
+      ];
+      setTransactions(transactions);
+      setDisplayableTransactions(transactions);
+    }
+  }, [isPending, data,]);
 
   // // TODO il faut faire un high order component avec template pour faire du UI skeleton avec is loading et is error
   if (isPending) {
@@ -32,6 +54,10 @@ export const AccountPage = () => {
   }
 
   const account = data as Account;
+  const filterTransactions = (type: TransactionType) => (_: any) => {
+    const filtered = filterDisplayableTransactions(transactions, type);
+    setDisplayableTransactions(filtered);
+  }
 
   return (
     <div>
@@ -39,11 +65,11 @@ export const AccountPage = () => {
       <h2>{ account.summary.date }</h2>
 
       <section className="actions">
-        <button>Toutes les opérations</button>
-        <button>Crédits</button>
-        <button>Dépenses</button>
-        <button>Budgets</button>
-        <button>Charges</button>
+        <button onClick={ filterTransactions('ALL') }>Toutes les opérations</button>
+        <button onClick={ filterTransactions('CREDIT') }>Crédits</button>
+        <button onClick={ filterTransactions('EXPENSE') }>Dépenses</button>
+        <button onClick={ filterTransactions('BUDGET') }>Budgets</button>
+        <button onClick={ filterTransactions('CHARGE') }>Charges</button>
         <button onClick={ () => navigate(`/accounts/${ account.summary.id }/parameters`) }>Paramètres</button>
       </section>
 
@@ -54,35 +80,14 @@ export const AccountPage = () => {
         il faudrait un composant qui réfléchir et qui affiche en fonction du clic et des composnats d'affichage.
       </p>
 
-      <section className="summary">
-        <div className="indicator">
-          <span className="indicator__label">Montant début de mois</span>
-          <span className="indicator__value">1000€</span>
-        </div>
-        <div className="indicator">
-          <span className="indicator__label">Montant actuel</span>
-          <span className="indicator__value">1000€</span>
-        </div>
-        <div className="indicator">
-          <span className="indicator__label">Montant projeté fin de mois</span>
-          <span className="indicator__value">1000€</span>
-        </div>
-      </section>
+      <AccountIndicators
+        startOfPeriodAmount={ 1000 }
+        currentPeriodAmount={ 1000 }
+        endOfPeriodProjectedAmount={ 1000 }
+      >
+      </AccountIndicators>
 
-      <section className="expenses">
-        <ul>
-          { (account.recurrentTransactions).map((transaction: RecurrentTransaction) => (
-            <li key={ transaction.id }>
-              <span>{ transaction.appliedAt }</span>
-              <span>{ transaction.appliedAt }</span>
-              <span>{ transaction.description }</span>
-              <span>{ transaction.amount }</span>
-            </li>
-          ))
-          }
-        </ul>
-      </section>
-      <Transactions transactions={ account.transactions }/>
+      <Transactions transactions={ displayableTransactions }/>
     </div>
   )
 }

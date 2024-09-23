@@ -15,7 +15,7 @@ export interface Account {
   transactions: AccountTransaction[];
 }
 
-export type TransactionType = 'CHARGE' | 'CREDIT' | 'EXPENSE' | 'BUDGET';
+export type TransactionType = 'CHARGE' | 'CREDIT' | 'EXPENSE' | 'BUDGET' | 'ALL';
 
 export interface AccountTransaction {
   id: number;

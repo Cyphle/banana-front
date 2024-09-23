@@ -1,16 +1,25 @@
-import { AccountTransaction } from '../../stores/accounts/accounts.type.ts';
+import { AccountTransaction, TransactionType } from '../../stores/accounts/accounts.type.ts';
 
 // TODO il faudrait un composant pour les transactions et un pour les transactions recurrentes
+export interface DisplayableTransaction {
+  id: number;
+  executedAt: string;
+  appliedAt: string;
+  type: TransactionType;
+  description: string;
+  amount: number;
+}
+
 export interface TransactionsProps {
-  transactions: AccountTransaction[];
+  transactions: DisplayableTransaction[];
 }
 
 export const Transactions = (props: TransactionsProps) => {
   return (
-    <section className="expenses">
+    <section className="transactions">
       <ul>
         { (props.transactions).map((transaction: AccountTransaction) => (
-          <li key={ transaction.id }>
+          <li key={ `${transaction.type}-${transaction.id}` }>
             <span>{ transaction.executedAt }</span>
             <span>{ transaction.appliedAt }</span>
             <span>{ transaction.description }</span>
@@ -21,4 +30,13 @@ export const Transactions = (props: TransactionsProps) => {
       </ul>
     </section>
   )
+}
+
+// TODO to be tested
+export const filterDisplayableTransactions = (transactions: DisplayableTransaction[], type: TransactionType): DisplayableTransaction[] => {
+  if (type === 'ALL') {
+    return transactions;
+  } else {
+    return transactions.filter((transaction: DisplayableTransaction) => transaction.type === type);
+  }
 }
