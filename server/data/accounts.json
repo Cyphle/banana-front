@@ -41,6 +41,7 @@
         "id": 1,
         "initialAmount": 1000.0,
         "actualAmount": 0.0,
+        "name": "Courses",
         "transactions": [
             {
                 "id": 1,
