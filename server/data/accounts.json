@@ -10,14 +10,23 @@
     "startingBalance": 12403.76,
     "currentBalance": 226.39,
     "projectedBalance": 226.39,
-    "charges": [
+    "budgets": [
+      {
+        "id": 1,
+        "initialAmount": 1000.0,
+        "actualAmount": 0.0,
+        "name": "Courses"
+      }
+    ],
+    "transactions": [
       {
         "id": 1,
         "appliedAt": "2024-09-05",
         "description": "Prêt immobilier",
         "amount": 3177.66,
         "startDate": "2021-10-05",
-        "frequency": "MONTHLY"
+        "frequency": "MONTHLY",
+        "type": "CHARGE"
       },
       {
         "id": 2,
@@ -25,7 +34,8 @@
         "description": "Engie",
         "amount": 223.83,
         "startDate": "2021-10-05",
-        "frequency": "MONTHLY"
+        "frequency": "MONTHLY",
+        "type": "CHARGE"
       },
       {
         "id": 3,
@@ -33,41 +43,32 @@
         "description": "Internet",
         "amount": 29.99,
         "startDate": "2021-10-05",
-        "frequency": "MONTHLY"
-      }
-    ],
-    "budgets": [
+        "frequency": "MONTHLY",
+        "type": "CHARGE"
+      },
       {
-        "id": 1,
-        "initialAmount": 1000.0,
-        "actualAmount": 0.0,
-        "name": "Courses",
-        "transactions": [
-            {
-                "id": 1,
-                "executedAt": "2024-09-01",
-                "appliedAt": "2024-09-03",
-                "description": "Primeur",
-                "amount": 19.73
-            }
-        ]
-      }
-    ],
-    "expenses": [
+        "id": 4,
+        "executedAt": "2024-09-01",
+        "appliedAt": "2024-09-03",
+        "description": "Primeur",
+        "amount": 19.73,
+        "budget": 1,
+        "type": "BUDGET"
+      },
       {
-        "id": 1,
+        "id": 5,
         "executedAt": "2024-09-08",
         "appliedAt": "2024-09-08",
         "description": "Raphaëlle",
-        "amount": 3219.76
-      }
-    ],
-    "credits": [
+        "amount": 3219.76,
+        "type": "EXPENSE"
+      },
       {
         "id": 1,
         "executedAt": "2024-09-02",
         "description": "AirBnb",
-        "amount": 70.0
+        "amount": 70.0,
+        "type": "CREDIT"
       }
     ]
   },
