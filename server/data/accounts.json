@@ -3,38 +3,70 @@
     "id": 1,
     "name": "Commun CIC",
     "type": "SHARED",
-    "date": "2016-01-01",
-    "startingBalance": 100.0,
-    "balance": 110.0,
-    "projectedBalance": 100.0,
-    "recurrentTransactions": [
+    "period": {
+      "from": "2024-01-01",
+      "to": "2024-01-31"
+    },
+    "startingBalance": 12403.76,
+    "currentBalance": 226.39,
+    "projectedBalance": 226.39,
+    "charges": [
       {
         "id": 1,
-        "appliedAt": "2016-01-03",
-        "description": "Loan",
-        "amount": 100.0,
-        "type": "CHARGE",
-        "startDate": "2010-01-01",
-        "endDate": "2030-01-01",
+        "appliedAt": "2024-09-05",
+        "description": "Prêt immobilier",
+        "amount": 3177.66,
+        "startDate": "2021-10-05",
         "frequency": "MONTHLY"
-      }
-    ],
-    "transactions": [
-      {
-        "id": 1,
-        "executedAt": "2016-01-01",
-        "appliedAt": "2016-01-03",
-        "description": "Opening Balance",
-        "amount": 100.0,
-        "type": "EXPENSE"
       },
       {
         "id": 2,
-        "executedAt": "2016-01-01",
-        "appliedAt": "2016-01-03",
-        "description": "Deposit",
-        "amount": 10.0,
-        "type": "CREDIT"
+        "appliedAt": "2024-09-12",
+        "description": "Engie",
+        "amount": 223.83,
+        "startDate": "2021-10-05",
+        "frequency": "MONTHLY"
+      },
+      {
+        "id": 3,
+        "appliedAt": "2024-09-20",
+        "description": "Internet",
+        "amount": 29.99,
+        "startDate": "2021-10-05",
+        "frequency": "MONTHLY"
+      }
+    ],
+    "budgets": [
+      {
+        "id": 1,
+        "initialAmount": 1000.0,
+        "actualAmount": 0.0,
+        "transactions": [
+            {
+                "id": 1,
+                "executedAt": "2024-09-01",
+                "appliedAt": "2024-09-03",
+                "description": "Primeur",
+                "amount": 19.73
+            }
+        ]
+      }
+    ],
+    "expenses": [
+      {
+        "id": 1,
+        "executedAt": "2024-09-08",
+        "appliedAt": "2024-09-08",
+        "description": "Raphaëlle",
+        "amount": 3219.76
+      }
+    ],
+    "credits": [
+      {
+        "id": 1,
+        "executedAt": "2024-09-02",
+        "description": "AirBnb",
+        "amount": 70.0
       }
     ]
   },
