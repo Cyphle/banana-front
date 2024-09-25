@@ -70,7 +70,23 @@
         "amount": 70.0,
         "type": "CREDIT"
       }
-    ]
+    ],
+    "parameters": {
+      "distribution": {
+        "Raphaelle": {
+          "salary": 6062.45,
+          "percentage": 0.522404,
+          "amount": 2707.62,
+          "balance": 3772.16
+        },
+        "Cyril": {
+          "salary": 5542.45,
+          "percentage": 0.477596,
+          "amount": 2475.14,
+          "balance": 3448.60
+        }
+      }
+    }
   },
   {
     "id": 2,
