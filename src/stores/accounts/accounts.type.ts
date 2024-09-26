@@ -15,6 +15,7 @@ export interface Account {
   summary: AccountSummary;
   budgets: Budget[];
   transactions: AccountTransaction[];
+  parameters: AccountParameters;
 }
 
 export interface Budget {
@@ -42,3 +43,14 @@ export interface AccountTransaction {
 }
 
 export type FREQUENCY = 'MONTHLY';
+
+export interface AccountParameters {
+  distribution: {
+    [name: string]: {
+      salary: number;
+      percentage: number;
+      amount: number;
+      balance: number;
+    }
+  }
+}

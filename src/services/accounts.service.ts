@@ -19,6 +19,7 @@ export const responseToAccount = (data: any): Account => {
     summary: toAccountSummary(data),
     budgets: data.budgets.map((budget: any) => toBudget(budget)),
     transactions: data.transactions.map((transaction: any) => toTransaction(transaction)),
+    parameters: data.parameters
   };
 }
 
