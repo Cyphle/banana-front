@@ -1,11 +1,5 @@
 import { getMany, getOne } from '../helpers/http.ts';
-import {
-  Account,
-  AccountSummary,
-  AccountTransaction, FREQUENCY,
-  RecurrentTransaction,
-  TransactionType
-} from '../stores/accounts/accounts.type.ts';
+import { Account, AccountSummary, AccountTransaction, Budget } from '../stores/accounts/accounts.type.ts';
 
 // TODO to be tested
 export const getAccounts = (): Promise<AccountSummary[]> => {
@@ -13,15 +7,7 @@ export const getAccounts = (): Promise<AccountSummary[]> => {
 }
 
 export const responseToAccounts = (data: any): AccountSummary[] => {
-  return data.map((account: any) => {
-    return {
-      id: account.id,
-      name: account.name,
-      type: account.type,
-      balance: account.balance,
-      projectedBalance: account.projectedBalance,
-    };
-  });
+  return data.map((account: any) => toAccountSummary(account));
 }
 
 export const getAccount = (id: number): Promise<Account> => {
@@ -29,33 +15,50 @@ export const getAccount = (id: number): Promise<Account> => {
 }
 
 export const responseToAccount = (data: any): Account => {
-    return {
-      summary: {
-        id: data.id,
-        name: data.name,
-        type: data.type,
-        date: data.date,
-        startingBalance: data.startingBalance,
-        balance: data.balance,
-        projectedBalance: data.projectedBalance,
-      },
-      recurrentTransactions: data.recurrentTransactions.map((transaction: any): RecurrentTransaction => ({
-        id: transaction.id,
-        appliedAt: transaction.appliedAt,
-        type: transaction.type,
-        description: transaction.description,
-        amount: transaction.amount,
-        startDate: transaction.startDate,
-        endDate: transaction.endDate,
-        frequency: transaction.frequency as FREQUENCY,
-      })),
-      transactions: data.transactions.map((transaction: any): AccountTransaction => ({
-        id: transaction.id,
-        executedAt: transaction.executedAt,
-        appliedAt: transaction.appliedAt,
-        type: transaction.type as TransactionType,
-        description: transaction.description,
-        amount: transaction.amount,
-      })),
-    };
+  return {
+    summary: toAccountSummary(data),
+    budgets: data.budgets.map((budget: any) => toBudget(budget)),
+    transactions: data.transactions.map((transaction: any) => toTransaction(transaction)),
+  };
+}
+
+const toBudget = (budget: any): Budget => {
+  return {
+    id: budget.id,
+    initialAmount: budget.initialAmount,
+    actualAmount: budget.actualAmount,
+    name: budget.name,
+    startDate: budget.startDate,
+    endDate:budget.endDate,
+    frequency: budget.frequency,
+  }
+}
+
+const toTransaction = (transaction: any): AccountTransaction => {
+  return {
+    id: transaction.id,
+    executedAt: transaction.executedAt,
+    appliedAt: transaction.appliedAt,
+    type: transaction.type,
+    description: transaction.description,
+    amount: transaction.amount,
+    startDate: transaction.startDate,
+    endDate: transaction.endDate,
+    budgetId: transaction.budgetId,
+  }
+}
+
+const toAccountSummary = (account: any): AccountSummary => {
+  return {
+    id: account.id,
+    name: account.name,
+    type: account.type,
+    period: {
+      from: account.period.from,
+      to: account.period.to
+    },
+    startingBalance: account.startingBalance,
+    currentBalance: account.balance,
+    projectedBalance: account.projectedBalance,
+  }
 }

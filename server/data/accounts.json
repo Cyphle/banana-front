@@ -15,7 +15,9 @@
         "id": 1,
         "initialAmount": 1000.0,
         "actualAmount": 0.0,
-        "name": "Courses"
+        "name": "Courses",
+        "startDate": "2024-01-01",
+        "frequency": "MONTHLY"
       }
     ],
     "transactions": [
@@ -52,7 +54,7 @@
         "appliedAt": "2024-09-03",
         "description": "Primeur",
         "amount": 19.73,
-        "budget": 1,
+        "budgetId": 1,
         "type": "BUDGET"
       },
       {
@@ -92,6 +94,10 @@
     "id": 2,
     "name": "Boursobank",
     "type": "PERSONAL",
+    "period": {
+      "from": "2024-01-01",
+      "to": "2024-01-31"
+    },
     "balance": 220.0,
     "projectedBalance": 200.0
   },
@@ -99,6 +105,10 @@
     "id": 3,
     "name": "Boursobank Livret+",
     "type": "SAVING",
+    "period": {
+      "from": "2024-01-01",
+      "to": "2024-01-31"
+    },
     "balance": 330.0,
     "projectedBalance": 300.0
   }

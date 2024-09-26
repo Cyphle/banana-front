@@ -1,18 +1,15 @@
 import { useLoaderData } from 'react-router-dom';
 import { useFetchAccount } from '../../stores/accounts/accounts.queries.ts';
 import { Account, TransactionType } from '../../stores/accounts/accounts.type.ts';
-import { useNavigate } from 'react-router';
 import {
   DisplayableTransaction,
   filterDisplayableTransactions,
   Transactions
 } from '../../components/transactions/Transactions.tsx';
-import {
-  fromAccountTransactionsToDisplayableTransactions,
-  fromRecurrentTransactionsToDisplayableTransactions
-} from '../../helpers/transaction.ts';
+import { fromAccountTransactionsToDisplayableTransactions } from '../../helpers/transaction.ts';
 import { AccountIndicators } from '../../components/account-indicators/AccountIndicators.tsx';
 import { useEffect, useState } from 'react';
+import { AccountParameters } from '../../components/account-parameters/AccountParameters.tsx';
 
 interface AccountParams {
   accountId: string;
@@ -29,16 +26,13 @@ export const AccountPage = () => {
   const params = useLoaderData() as AccountParams;
   const [transactions, setTransactions] = useState<DisplayableTransaction[]>([]);
   const [displayableTransactions, setDisplayableTransactions] = useState<DisplayableTransaction[]>([]);
+  const [showParameters, setShowParameters] = useState(false);
   const { isPending, isError, data, error } = useFetchAccount(parseInt(params.accountId));
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (!isPending && !isError) {
       const account = data as Account;
-      const transactions = [
-        ...fromRecurrentTransactionsToDisplayableTransactions(account.recurrentTransactions),
-        ...fromAccountTransactionsToDisplayableTransactions(account.transactions),
-      ];
+      const transactions = fromAccountTransactionsToDisplayableTransactions(account.transactions);
       setTransactions(transactions);
       setDisplayableTransactions(transactions);
     }
@@ -59,10 +53,14 @@ export const AccountPage = () => {
     setDisplayableTransactions(filtered);
   }
 
+  const showHideParameters = () => {
+    setShowParameters(!showParameters);
+  }
+
   return (
     <div>
       <h1>{ account.summary.name }</h1>
-      <h2>{ account.summary.date }</h2>
+      <h2>{ account.summary.period.from } to { account.summary.period.to } </h2>
 
       <section className="actions">
         <button onClick={ filterTransactions('ALL') }>Toutes les opérations</button>
@@ -70,24 +68,19 @@ export const AccountPage = () => {
         <button onClick={ filterTransactions('EXPENSE') }>Dépenses</button>
         <button onClick={ filterTransactions('BUDGET') }>Budgets</button>
         <button onClick={ filterTransactions('CHARGE') }>Charges</button>
-        <button onClick={ () => navigate(`/accounts/${ account.summary.id }/parameters`) }>Paramètres</button>
+        <button onClick={ showHideParameters }>Paramètres</button>
       </section>
 
-      // TODO notes
-      <p>Notes: au clic sur un des boutons, en fait il faut filtrer au lieu de refaire un appel.
-        <br/>
-        du coup, il faudrait plutôt un composant d'affichage de tableau.<br/>
-        il faudrait un composant qui réfléchir et qui affiche en fonction du clic et des composnats d'affichage.
-      </p>
-
       <AccountIndicators
-        startOfPeriodAmount={ 1000 }
-        currentPeriodAmount={ 1000 }
-        endOfPeriodProjectedAmount={ 1000 }
+        startOfPeriodAmount={ account.summary.startingBalance }
+        currentPeriodAmount={ account.summary.currentBalance }
+        endOfPeriodProjectedAmount={ account.summary.projectedBalance }
       >
       </AccountIndicators>
 
       <Transactions transactions={ displayableTransactions }/>
+
+      { showParameters ? <AccountParameters></AccountParameters> : null }
     </div>
   )
 }

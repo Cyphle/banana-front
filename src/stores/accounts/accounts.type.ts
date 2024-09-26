@@ -2,17 +2,29 @@ export interface AccountSummary {
   id: number;
   name: string;
   type: string;
-  date: string;
+  period: {
+    from: string;
+    to: string;
+  },
   startingBalance: number;
-  balance: number;
+  currentBalance: number;
   projectedBalance: number;
 }
 
-// TODO il va manquer la modélisation des bugets
 export interface Account {
   summary: AccountSummary;
-  recurrentTransactions: RecurrentTransaction[];
+  budgets: Budget[];
   transactions: AccountTransaction[];
+}
+
+export interface Budget {
+  id: number;
+  initialAmount: number;
+  actualAmount: number;
+  name: string;
+  startDate: string;
+  endDate?: string;
+  frequency: FREQUENCY;
 }
 
 export type TransactionType = 'CHARGE' | 'CREDIT' | 'EXPENSE' | 'BUDGET' | 'ALL';
@@ -24,17 +36,9 @@ export interface AccountTransaction {
   type: TransactionType;
   description: string;
   amount: number;
+  startDate?: string;
+  endDate?: string;
+  budgetId: number;
 }
 
 export type FREQUENCY = 'MONTHLY';
-
-export interface RecurrentTransaction {
-  id: number;
-  appliedAt: string;
-  type: TransactionType;
-  description: string;
-  amount: number;
-  startDate: string;
-  endDate: string;
-  frequency: FREQUENCY;
-}
