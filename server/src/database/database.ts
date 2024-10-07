@@ -8,7 +8,7 @@ interface DatabaseData {
 export class Database {
   private data: DatabaseData = {}
   private FOLDER_CONFIG = {
-    basePath: '../',
+    basePath: '../../',
     dataPath: ''
   }
 
@@ -18,9 +18,9 @@ export class Database {
   }
 
   private hydrate() {
-    fs.readdirSync(path.join(this.FOLDER_CONFIG.basePath, this.FOLDER_CONFIG.dataPath))
+    fs.readdirSync(path.join(__dirname, this.FOLDER_CONFIG.basePath, this.FOLDER_CONFIG.dataPath))
       .forEach((file: string) => {
-        const data = JSON.parse(fs.readFileSync(path.join(this.FOLDER_CONFIG.basePath, this.FOLDER_CONFIG.dataPath, file), 'utf8'));
+        const data = JSON.parse(fs.readFileSync(path.join(__dirname, this.FOLDER_CONFIG.basePath, this.FOLDER_CONFIG.dataPath, file), 'utf8'));
         this.data[file.split('.')[0]] = data;
       });
   }
