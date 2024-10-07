@@ -5,3 +5,10 @@ export interface Profile {
   lastName: string;
   email: string;
 }
+
+export interface CreateProfileCommand {
+  username: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+}
