@@ -1,12 +1,8 @@
 import { Database } from '../../database/database';
 import { CreateProfileCommand, Profile } from './profile.types';
 
-export const getProfileByIdHandler = (database: Database) => (id: number): Profile => {
-  return database.readOneById('profiles', id);
-}
-
-export const getProfileByEmailHandler = (database: Database) => (email: string): Profile => {
-  return database.readOneByField('profiles', 'email', email);
+export const getProfileByUsernameHandler = (database: Database) => (username: string): Profile => {
+  return database.readOneByField('profiles', 'username', username);
 }
 
 export const createProfileHandler = (database: Database) => (command: CreateProfileCommand): Profile => {
