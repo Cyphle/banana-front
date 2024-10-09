@@ -4,6 +4,7 @@ export interface AccountIndicatorsProps {
   endOfPeriodProjectedAmount: number
 }
 
+// TODO to be tested
 export const AccountIndicators = (props: AccountIndicatorsProps) => {
   return (
     <section className="summary">

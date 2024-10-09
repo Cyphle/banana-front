@@ -1,6 +1,6 @@
 import { FastifyError, FastifyInstance, FastifyPluginOptions, FastifyReply, FastifyRequest } from 'fastify';
-import { createProfileController, getProfileByEmailController, getProfileByIdController } from './profile.controller';
-import { createProfileHandler, getProfileByEmailHandler, getProfileByIdHandler } from './profile.handlers';
+import { createProfileController, getProfileByUsernameController } from './profile.controller';
+import { createProfileHandler, getProfileByUsernameHandler } from './profile.handlers';
 
 export const profilePlugin = async (fastify: FastifyInstance, options: FastifyPluginOptions) => {
   fastify.log.info('Initiating profile plugin');
@@ -9,7 +9,6 @@ export const profilePlugin = async (fastify: FastifyInstance, options: FastifyPl
     throw error
   })
 
-  getProfileByIdController(getProfileByIdHandler)(fastify);
-  getProfileByEmailController(getProfileByEmailHandler)(fastify);
+  getProfileByUsernameController(getProfileByUsernameHandler)(fastify);
   createProfileController(createProfileHandler)(fastify);
 }

@@ -1,5 +1,7 @@
 import fastify, { FastifyInstance, FastifyPluginOptions } from 'fastify';
 import cors from '@fastify/cors'
+import fastifyCookie from '@fastify/cookie';
+import fastifySession from '@fastify/session';
 
 export const initFastify = (
   decorators: ((fastify: FastifyInstance) => void)[] = [],
@@ -10,6 +12,8 @@ export const initFastify = (
   });
 
   server.register(cors, {});
+  server.register(fastifyCookie, {});
+  server.register(fastifySession, { secret: 'superverylongsessionsecrettohashthingswhichhastobereplacedwheninproduction' });
 
   decorators.forEach(decorator => decorator(server));
 

@@ -10,9 +10,8 @@ export const Header = () => {
       <div className="banana-title">
         <NavLink to="/">
           <FontAwesomeIcon icon={faMoneyBill1} />
+          <span>Banana - Cool bank account manager</span>
         </NavLink>
-
-        <span>Banana - Cool bank account manager</span>
       </div>
 
       <Menu></Menu>

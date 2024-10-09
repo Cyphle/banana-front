@@ -5,7 +5,8 @@ const config: Config = {
   preset: "ts-jest/presets/js-with-ts",
   testEnvironment: "jest-environment-jsdom",
   moduleNameMapper: {
-    "assets/images/generated-icons": "identity-obj-proxy"
+    "assets/images/generated-icons": "identity-obj-proxy",
+    '\\.(css|scss)$': 'identity-obj-proxy',
   },
   modulePaths: [
     "<rootDir>/src"
@@ -22,9 +23,8 @@ const config: Config = {
     "reportWebVitals.ts",
     "routes.ts",
     "router.tsx",
-    "main.tsx"
-  ],
-  modulePathIgnorePatterns: ["server"]
+    "App.tsx"
+  ]
 };
 
 export default config;

@@ -1,4 +1,3 @@
-import { describe, expect, test } from '@jest/globals';
 import { mockFastify } from '../../testing/mock-fastify';
 import { createAccountController, getAccountByIdController, listAccountsController } from './account.controller';
 import { createAccountHandler, getAccountByIdHandler, getAccountsHandler } from './account.handlers';

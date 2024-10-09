@@ -1,6 +1,7 @@
 import { AccountTransaction, TransactionType } from '../../stores/accounts/accounts.type.ts';
 
 // TODO il faudrait un composant pour les transactions et un pour les transactions recurrentes
+// TODO to be tested
 export interface DisplayableTransaction {
   id: number;
   executedAt: string;
