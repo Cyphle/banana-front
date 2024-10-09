@@ -1,4 +1,4 @@
-import { useFetchAccounts } from './accounts.queries';
+import { useFetchAccounts } from './account.queries.ts';
 import { getAccounts } from '../../services/accounts.service';
 import { waitFor } from '@testing-library/react';
 import { renderQueryHook } from '../../../test-utils/render.tsx';
