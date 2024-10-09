@@ -5,7 +5,8 @@ const config: Config = {
   preset: "ts-jest/presets/js-with-ts",
   testEnvironment: "jest-environment-jsdom",
   moduleNameMapper: {
-    "assets/images/generated-icons": "identity-obj-proxy"
+    "assets/images/generated-icons": "identity-obj-proxy",
+    "^.+\\.(css|less|scss)$": "identity-obj-proxy"
   },
   modulePaths: [
     "<rootDir>/src"
