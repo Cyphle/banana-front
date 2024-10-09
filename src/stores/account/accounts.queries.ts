@@ -3,7 +3,7 @@ import { getAccount, getAccounts } from '../../services/accounts.service.ts';
 
 export const useFetchAccounts = (): UseQueryResult => {
   return useQuery({
-    queryKey: ['accounts'],
+    queryKey: ['account'],
     queryFn: getAccounts
   });
 }

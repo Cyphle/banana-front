@@ -10,9 +10,9 @@ export const Home = () => {
       </div>
 
       <section>
-        <h2>Pour suivre facilement vos comptes</h2>
+        <h2>Pour suivre facilement tes comptes</h2>
 
-        <p>Créer des comptes et ajouter vos dépenses en fonction de leurs natures</p>
+        <p>Crée des comptes et ajoute tes dépenses en fonction de leurs natures</p>
 
         <RegistrationButton />
       </section>
@@ -20,7 +20,7 @@ export const Home = () => {
       <section>
         <h2>Des comptes personnels, commun et épargne</h2>
 
-        <p>Différenciez vos comptes personnels, commun et épargne. Partagez ceux que vous voulez avec vos contacts</p>
+        <p>Différencie tes comptes personnels, commun et épargne. Partage ceux que tu veux avec tes contacts</p>
 
         <RegistrationButton />
       </section>

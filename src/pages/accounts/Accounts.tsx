@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router';
-import { useFetchAccounts } from '../../stores/accounts/accounts.queries.ts';
-import { AccountSummary } from '../../stores/accounts/accounts.type.ts';
+import { useFetchAccounts } from '../../stores/account/accounts.queries.ts';
+import { AccountSummary } from '../../stores/account/accounts.type.ts';
 
 // TODO on a besoin du mois courant en fait pour récupérer les choses
 export const AccountsPage = () => {

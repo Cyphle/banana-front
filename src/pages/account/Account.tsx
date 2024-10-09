@@ -1,6 +1,6 @@
 import { useLoaderData } from 'react-router-dom';
-import { useFetchAccount } from '../../stores/accounts/accounts.queries.ts';
-import { Account, TransactionType } from '../../stores/accounts/accounts.type.ts';
+import { useFetchAccount } from '../../stores/account/accounts.queries.ts';
+import { Account, TransactionType } from '../../stores/account/accounts.type.ts';
 import {
   DisplayableTransaction,
   filterDisplayableTransactions,

@@ -7,8 +7,8 @@ jest.mock('../../services/accounts.service', () => ({
   getAccounts: jest.fn(),
 }));
 
-describe('accounts queries', () => {
-  it('should fetch accounts', async () => {
+describe('account queries', () => {
+  it('should fetch account', async () => {
     jest.mocked(getAccounts).mockResolvedValue([{
       id: 1,
       name: 'My Account',

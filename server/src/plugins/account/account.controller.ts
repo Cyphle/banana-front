@@ -8,7 +8,7 @@ import { database } from '../../config/database.config';
 // TODO ici il faudrait pouvoir lire les sessions et récupérer le profile connecté. Donc il faut un système de session
 export const listAccountsController = (handler: (database: Database) => Account[]) => (fastify: FastifyInstance): void => {
   fastify.get('/', (request: CustomFastifyRequest, reply: FastifyReply) => {
-    console.log('in get accounts controller', request.user);
+    console.log('in get account controller', request.user);
     const accounts = handler(request.database!);
 
     reply

@@ -1,12 +1,12 @@
 import { render } from '../../../test-utils/render.tsx';
 import { AccountsPage } from './Accounts.tsx';
-import { useFetchAccounts } from '../../stores/accounts/accounts.queries';
+import { useFetchAccounts } from '../../stores/account/accounts.queries';
 
 jest.mock('react-router', () => ({
   useNavigate: jest.fn(),
 }));
 
-jest.mock('../../stores/accounts/accounts.queries', () => ({
+jest.mock('../../stores/account/accounts.queries', () => ({
   useFetchAccounts: jest.fn(),
 }));
 

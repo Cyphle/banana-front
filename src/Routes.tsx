@@ -19,11 +19,11 @@ const ROUTES = [
         children: [
           { index: true, element: <Home/> },
           {
-            path: 'accounts',
+            path: 'account',
             element: <AccountsPage/>,
           },
           {
-            path: 'accounts/:id',
+            path: 'account/:id',
             element: <AccountPage/>,
             loader: accountParamsLoader,
           },

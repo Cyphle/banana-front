@@ -3,7 +3,7 @@ import { createAccountController, getAccountByIdController, listAccountsControll
 import { createAccountHandler, getAccountByIdHandler, getAccountsHandler } from './account.handlers';
 
 describe('Account controller', () => {
-  test('should get accounts', done => {
+  test('should get account', done => {
     mockFastify({}, [listAccountsController(getAccountsHandler)])
       .inject()
       .get('/')

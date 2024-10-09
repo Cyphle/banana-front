@@ -1,4 +1,4 @@
-import { AccountTransaction, TransactionType } from '../../stores/accounts/accounts.type.ts';
+import { AccountTransaction, TransactionType } from '../../stores/account/accounts.type.ts';
 
 // TODO il faudrait un composant pour les transactions et un pour les transactions recurrentes
 // TODO to be tested

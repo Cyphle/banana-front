@@ -9,7 +9,7 @@ const fastify = initFastify(
   [decorateWithUser, decorateWithDatabase],
   [
     { plugin: profilePlugin, routesPrefix: '/profiles' },
-    { plugin: accountPlugin, routesPrefix: '/accounts' },
+    { plugin: accountPlugin, routesPrefix: '/account' },
     { plugin: loginPlugin, routesPrefix: '/login' }
   ]
 );
