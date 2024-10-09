@@ -1,8 +1,6 @@
 import './Home.scss';
-import { InscriptionButton } from '../../components/inscription-button/InscriptionButton.tsx';
-import { Footer } from '../../shared/footer/Footer.tsx';
+import { RegistrationButton } from '../../components/registration-button/RegistrationButton.tsx';
 
-// TODO to be tested
 export const Home = () => {
   return (
     <div className="homepage">
@@ -16,7 +14,7 @@ export const Home = () => {
 
         <p>Créer des comptes et ajouter vos dépenses en fonction de leurs natures</p>
 
-        <InscriptionButton />
+        <RegistrationButton />
       </section>
 
       <section>
@@ -24,10 +22,8 @@ export const Home = () => {
 
         <p>Différenciez vos comptes personnels, commun et épargne. Partagez ceux que vous voulez avec vos contacts</p>
 
-        <InscriptionButton />
+        <RegistrationButton />
       </section>
-
-      <Footer />
     </div>
   )
 }

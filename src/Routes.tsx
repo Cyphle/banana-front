@@ -5,6 +5,7 @@ import { Profile } from './pages/profile/Profile.tsx';
 import Main, { appLoader } from './main.tsx';
 import { Home } from './pages/home/Home.tsx';
 import { AccountPage, accountParamsLoader } from './pages/account/Account.tsx';
+import { Registration } from './pages/registration/Registration.tsx';
 
 const ROUTES = [
   {
@@ -30,6 +31,10 @@ const ROUTES = [
             path: 'profile',
             element: <Profile/>,
           },
+          {
+            path: 'registration',
+            element: <Registration/>,
+          }
         ]
       }
     ]

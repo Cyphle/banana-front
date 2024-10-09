@@ -1,16 +1,16 @@
 import { Button } from 'antd';
 import { useNavigate } from 'react-router';
-import './InscriptionButton.scss';
+import './RegistrationButton.scss';
 
 export interface InscriptionButtonProps {
 }
 
-export const InscriptionButton = (_: InscriptionButtonProps) => {
+export const RegistrationButton = (_: InscriptionButtonProps) => {
   const navigate = useNavigate();
 
   return (
     <div className="cta">
-      <Button onClick={ () => navigate(`/profiles/creation`) } type="primary">S'inscrire</Button>
+      <Button onClick={ () => navigate(`/registration`) } type="primary">S'inscrire</Button>
     </div>
   )
 }
