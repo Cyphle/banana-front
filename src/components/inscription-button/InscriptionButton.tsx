@@ -1,5 +1,6 @@
 import { Button } from 'antd';
 import { useNavigate } from 'react-router';
+import './InscriptionButton.scss';
 
 export interface InscriptionButtonProps {
 }

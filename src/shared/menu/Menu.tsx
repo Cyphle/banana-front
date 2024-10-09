@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import './Menu.scss';
 
+// TODO to be tested
 export const Menu = () => {
   const navItems = [
     { id: 1, text: 'Mes comptes', path: '/accounts' },

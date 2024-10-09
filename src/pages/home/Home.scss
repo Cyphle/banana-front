@@ -1,11 +1,16 @@
 .homepage {
   text-align: center;
-}
 
-.main-title {
+  .main-title {
+    margin-bottom: 3%;
+  }
 
-}
+  section {
+    margin-bottom: 5%;
+  }
 
-button {
-  background-color: red;
+  footer {
+    position: fixed;
+    top: calc(100vh - 50px);
+  }
 }

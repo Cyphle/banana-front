@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMoneyBill1 } from '@fortawesome/free-solid-svg-icons';
 
+// TODO to be tested
 export const Header = () => {
   return (
     <header>
