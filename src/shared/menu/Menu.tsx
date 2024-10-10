@@ -7,6 +7,7 @@ export const Menu = () => {
     { id: 1, text: 'Mes comptes', path: '/account' },
     { id: 2, text: 'Profil', path: '/profile' },
     { id: 3, text: 'S\'inscrire', path: '/subscribe' },
+    { id: 4, text: 'Se connecter', path: '/login' }
   ];
 
   return (
