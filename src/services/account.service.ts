@@ -1,5 +1,5 @@
 import { getMany, getOne } from '../helpers/http.ts';
-import { Account, AccountSummary, AccountTransaction, Budget } from '../stores/account/account.type.ts';
+import { Account, AccountSummary, AccountTransaction, Budget } from '../stores/account/account.types.ts';
 
 // TODO to be tested
 export const getAccounts = (): Promise<AccountSummary[]> => {

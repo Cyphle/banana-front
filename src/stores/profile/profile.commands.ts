@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
-import { CreateProfileRequest } from './profile.ts';
+import { CreateProfileRequest } from './profile.types.ts';
 import { createProfile } from '../../services/profile.service.ts';
 
 export const useCreateProfile = (onError: (error?: any) => void, onSuccess: () => void) => {

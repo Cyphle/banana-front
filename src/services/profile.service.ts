@@ -1,4 +1,4 @@
-import { CreateProfileRequest, Profile } from '../stores/profile/profile.ts';
+import { CreateProfileRequest, Profile } from '../stores/profile/profile.types.ts';
 import { post } from '../helpers/http.ts';
 
 // TODO to be tested

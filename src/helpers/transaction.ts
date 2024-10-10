@@ -1,5 +1,5 @@
 import { DisplayableTransaction } from '../components/transactions/Transactions.tsx';
-import { AccountTransaction } from '../stores/account/account.type.ts';
+import { AccountTransaction } from '../stores/account/account.types.ts';
 
 // TODO to be tested
 export const fromAccountTransactionToDisplayableTransaction = (transaction: AccountTransaction): DisplayableTransaction => {

@@ -1,4 +1,4 @@
-import { CreateProfileRequest } from './profile.ts';
+import { CreateProfileRequest } from './profile.types.ts';
 import { createProfile } from '../../services/profile.service.ts';
 import { renderMutateHook } from '../../../test-utils/render.tsx';
 import { useCreateProfile } from './profile.commands.ts';
