@@ -5,6 +5,17 @@ import { Button, Form, Input } from 'antd';
 import { useCreateProfile } from '../../stores/profile/profile.commands.ts';
 
 export const Registration = () => {
+  const onUpdateAssetError = (_: string) => {
+  };
+
+  const onUpdateAssetSuccess = () => {
+  };
+
+  const {
+    mutate: createProfileMutation,
+    isPending: createProfileIsPending,
+  } = useCreateProfile(onUpdateAssetError, onUpdateAssetSuccess);
+
   const options = formOptions<Profile>({
     defaultValues: {
       username: '',
@@ -17,32 +28,18 @@ export const Registration = () => {
   const form = useForm({
     ...options,
     onSubmit: async ({ value }) => {
-      // Do something with form data
-      console.log(value);
-
       createProfileMutation({
-        assetType: form.values.assetType,
-        effectiveDate: form.values.effectiveDate.toISOString(),
-        expirationDate: form.values.expirationDate.toISOString(),
-        name: form.values.name,
+        username: value.username,
+        email: value.email,
+        firstName: value.firstName,
+        lastName: value.lastName,
       });
     },
   });
 
-  const onUpdateAssetError = (error?: string) => {
-  };
-
-  const onUpdateAssetSuccess = () => {
-  };
-
-  const {
-    mutate: createProfileMutation,
-    isPending: createProfileIsPending,
-  } = useCreateProfile(onUpdateAssetError, onUpdateAssetSuccess);
-
   return (
     <div>
-      <h1>Créé toi un compte</h1>
+      <h1>Crée toi un compte</h1>
 
       <Form
         labelCol={ { span: 8 } }
@@ -60,7 +57,7 @@ export const Registration = () => {
               <Input
                 value={ field.state.value }
                 onBlur={ field.handleBlur }
-                onChange={ (e) => field.handleChange(e.target.value) }
+                onChange={ (e: any) => field.handleChange(e.target.value) }
                 disabled={createProfileIsPending}
                 placeholder="Nom d'utilisateur"/>
             </>
@@ -75,7 +72,7 @@ export const Registration = () => {
               <Input
                 value={ field.state.value }
                 onBlur={ field.handleBlur }
-                onChange={ (e) => field.handleChange(e.target.value) }
+                onChange={ (e: any) => field.handleChange(e.target.value) }
                 placeholder="Email"/>
             </>
           ) }
@@ -89,7 +86,7 @@ export const Registration = () => {
               <Input
                 value={ field.state.value }
                 onBlur={ field.handleBlur }
-                onChange={ (e) => field.handleChange(e.target.value) }
+                onChange={ (e: any) => field.handleChange(e.target.value) }
                 placeholder="Prénom"/>
             </>
           ) }
@@ -103,7 +100,7 @@ export const Registration = () => {
               <Input
                 value={ field.state.value }
                 onBlur={ field.handleBlur }
-                onChange={ (e) => field.handleChange(e.target.value) }
+                onChange={ (e: any) => field.handleChange(e.target.value) }
                 placeholder="Nom"/>
             </>
           ) }
