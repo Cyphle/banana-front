@@ -55,6 +55,7 @@ export const Registration = () => {
             <>
               <label htmlFor={ field.name }>Nom d'utilisateur :</label>
               <Input
+                data-testid="username-input"
                 value={ field.state.value }
                 onBlur={ field.handleBlur }
                 onChange={ (e: any) => field.handleChange(e.target.value) }
@@ -70,6 +71,7 @@ export const Registration = () => {
             <>
               <label htmlFor={ field.name }>Email :</label>
               <Input
+                data-testid="email-input"
                 value={ field.state.value }
                 onBlur={ field.handleBlur }
                 onChange={ (e: any) => field.handleChange(e.target.value) }
@@ -84,6 +86,7 @@ export const Registration = () => {
             <>
               <label htmlFor={ field.name }>Prénom :</label>
               <Input
+                data-testid="firstname-input"
                 value={ field.state.value }
                 onBlur={ field.handleBlur }
                 onChange={ (e: any) => field.handleChange(e.target.value) }
@@ -98,6 +101,7 @@ export const Registration = () => {
             <>
               <label htmlFor={ field.name }>Nom :</label>
               <Input
+                data-testid="lastname-input"
                 value={ field.state.value }
                 onBlur={ field.handleBlur }
                 onChange={ (e: any) => field.handleChange(e.target.value) }
