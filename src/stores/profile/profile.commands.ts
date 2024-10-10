@@ -9,7 +9,6 @@ export const useCreateProfile = (onError: (error?: any) => void, onSuccess: () =
     mutationFn: (request: CreateProfileRequest) => createProfile(request),
     onError: (error: any) => onError(error),
     onSuccess: async () => {
-      onSuccess();
       // TODO invalidate queries
       // await queryClient.invalidateQueries({
       //   queryKey: [
@@ -18,6 +17,7 @@ export const useCreateProfile = (onError: (error?: any) => void, onSuccess: () =
       //     assetIdentifier,
       //   ],
       // });
+      onSuccess();
     },
   });
 };

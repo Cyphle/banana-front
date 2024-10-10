@@ -9,6 +9,10 @@ jest.mock('../../stores/profile/profile.commands.ts', () => ({
   })),
 }));
 
+jest.mock('react-router', () => ({
+  useNavigate: jest.fn(),
+}));
+
 describe('Registration', () => {
   beforeEach(() => {
     (useCreateProfile as jest.Mock).mockClear();

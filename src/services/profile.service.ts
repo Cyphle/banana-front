@@ -3,7 +3,7 @@ import { post } from '../helpers/http.ts';
 
 // TODO to be tested
 export const createProfile = (request: CreateProfileRequest): Promise<Profile> => {
-  return post<CreateProfileRequest, Profile>('/profiles', request, responseToProfile);
+  return post<CreateProfileRequest, Profile>('profiles', request, responseToProfile);
 }
 
 export const responseToProfile = (data: any): Profile => {

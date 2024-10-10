@@ -3,18 +3,23 @@ import { formOptions, useForm } from '@tanstack/react-form';
 import { Profile } from '../../stores/profile/profile.ts';
 import { Button, Form, Input } from 'antd';
 import { useCreateProfile } from '../../stores/profile/profile.commands.ts';
+import { useNavigate } from 'react-router';
 
 export const Registration = () => {
-  const onUpdateAssetError = (_: string) => {
+  const navigate = useNavigate();
+
+  const onCreateProfileError = (_: string) => {
+    // TODO do something
   };
 
-  const onUpdateAssetSuccess = () => {
+  const onCreateProfileSuccess = () => {
+    navigate(`/`);
   };
 
   const {
     mutate: createProfileMutation,
     isPending: createProfileIsPending,
-  } = useCreateProfile(onUpdateAssetError, onUpdateAssetSuccess);
+  } = useCreateProfile(onCreateProfileError, onCreateProfileSuccess);
 
   const options = formOptions<Profile>({
     defaultValues: {
