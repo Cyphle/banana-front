@@ -1,7 +1,7 @@
 import { FastifyInstance, FastifyReply } from 'fastify';
 import { CustomFastifyRequest } from '../../fastify.types';
 import { Database } from '../../database/database';
-import { CreateProfileCommand, Profile } from './profile.types';
+import { CreateProfileRequest, Profile } from './profile.types';
 import { database } from '../../config/database.config';
 import { getStringBodyElement, getStringQuery } from '../../helpers/fastify.helpers';
 
@@ -16,7 +16,7 @@ export const getProfileByUsernameController = (handler: (database: Database) => 
   });
 }
 
-export const createProfileController = (handler: (database: Database) => (command: CreateProfileCommand) => Profile) => (fastify: FastifyInstance): void => {
+export const createProfileController = (handler: (database: Database) => (command: CreateProfileRequest) => Profile) => (fastify: FastifyInstance): void => {
   fastify.post('/', (request: CustomFastifyRequest, reply: FastifyReply) => {
     const command = {
       username: getStringBodyElement<string>(request, 'username'),

@@ -6,7 +6,7 @@ export interface Profile {
   email: string;
 }
 
-export interface CreateProfileCommand {
+export interface CreateProfileRequest {
   username: string;
   email: string;
   firstName: string;
