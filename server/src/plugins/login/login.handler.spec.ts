@@ -3,7 +3,7 @@ import { loginHandler } from './login.handler';
 
 describe('Login handlers', () => {
   test('should login user', () => {
-    const profile = loginHandler(mockDatabase)('john.doe');
+    const profile = loginHandler(mockDatabase)({ username: 'john.doe', password: 'passpass' });
 
     expect(profile).toEqual({
       id: 1,
