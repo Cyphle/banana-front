@@ -1,9 +1,9 @@
 import { useFetchAccounts } from './account.queries.ts';
-import { getAccounts } from '../../services/accounts.service';
+import { getAccounts } from '../../services/account.service.ts';
 import { waitFor } from '@testing-library/react';
 import { renderQueryHook } from '../../../test-utils/render.tsx';
 
-jest.mock('../../services/accounts.service', () => ({
+jest.mock('../../services/account.service.ts', () => ({
   getAccounts: jest.fn(),
 }));
 

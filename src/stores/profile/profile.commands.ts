@@ -1,40 +1,23 @@
-export const createProfile = (onError: (error?: string) => void, onSuccess: () => void) => {
-  const currentOrganization = useCurrentOrganization();
-  const { assetIdentifier } = useParams();
+import { useMutation } from '@tanstack/react-query';
+import { CreateProfileRequest } from './profile.ts';
+import { createProfile } from '../../services/profile.service.ts';
 
-  const queryClient = useQueryClient();
+export const useCreateProfile = (onError: (error?: any) => void, onSuccess: () => void) => {
+  // const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (updatedAssetInfos: UpdateAssetBody) => updateAsset(currentOrganization, assetIdentifier || '', updatedAssetInfos),
-    mutationKey: [
-      UPDATE_ASSET,
-      currentOrganization,
-      assetIdentifier,
-    ],
-    onError: (error: ErrorResponse) => onError(error.response?.data?.error),
+    mutationFn: (request: CreateProfileRequest) => createProfile(request),
+    onError: (error: any) => onError(error),
     onSuccess: async () => {
       onSuccess();
-      await queryClient.invalidateQueries({
-        queryKey: [
-          FETCH_ASSET,
-          currentOrganization,
-          assetIdentifier,
-        ],
-      });
-      await queryClient.invalidateQueries({
-        queryKey: [
-          FETCH_ASSET_EXTERNAL_IDENTIFIERS,
-          currentOrganization,
-          assetIdentifier,
-        ],
-      });
-      await queryClient.invalidateQueries({
-        queryKey: [
-          FETCH_HISTORY,
-          currentOrganization,
-          assetIdentifier,
-        ],
-      });
+      // TODO invalidate queries
+      // await queryClient.invalidateQueries({
+      //   queryKey: [
+      //     FETCH_ASSET,
+      //     currentOrganization,
+      //     assetIdentifier,
+      //   ],
+      // });
     },
   });
 };

@@ -2,7 +2,7 @@ import './Registration.scss';
 import { formOptions, useForm } from '@tanstack/react-form';
 import { Profile } from '../../stores/profile/profile.ts';
 import { Button, Form, Input } from 'antd';
-import { createProfile } from '../../stores/profile/profile.commands.ts';
+import { useCreateProfile } from '../../stores/profile/profile.commands.ts';
 
 export const Registration = () => {
   const options = formOptions<Profile>({
@@ -14,18 +14,13 @@ export const Registration = () => {
     },
   });
 
-  const {
-    mutate: updateAsset,
-    isPending: updateAssetIsPending,
-  } = createProfile(onUpdateAssetError, onUpdateAssetSuccess);
-
   const form = useForm({
     ...options,
     onSubmit: async ({ value }) => {
       // Do something with form data
       console.log(value);
 
-      updateAsset({
+      createProfileMutation({
         assetType: form.values.assetType,
         effectiveDate: form.values.effectiveDate.toISOString(),
         expirationDate: form.values.expirationDate.toISOString(),
@@ -33,6 +28,17 @@ export const Registration = () => {
       });
     },
   });
+
+  const onUpdateAssetError = (error?: string) => {
+  };
+
+  const onUpdateAssetSuccess = () => {
+  };
+
+  const {
+    mutate: createProfileMutation,
+    isPending: createProfileIsPending,
+  } = useCreateProfile(onUpdateAssetError, onUpdateAssetSuccess);
 
   return (
     <div>
@@ -55,7 +61,7 @@ export const Registration = () => {
                 value={ field.state.value }
                 onBlur={ field.handleBlur }
                 onChange={ (e) => field.handleChange(e.target.value) }
-                disabled={updateAssetIsPending}
+                disabled={createProfileIsPending}
                 placeholder="Nom d'utilisateur"/>
             </>
           ) }

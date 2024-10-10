@@ -1,5 +1,5 @@
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
-import { getAccount, getAccounts } from '../../services/accounts.service.ts';
+import { getAccount, getAccounts } from '../../services/account.service.ts';
 
 export const useFetchAccounts = (): UseQueryResult => {
   return useQuery({

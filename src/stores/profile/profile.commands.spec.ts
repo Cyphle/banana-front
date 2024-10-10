@@ -1,34 +1,35 @@
-describe('createProfile', () => {
+import { CreateProfileRequest } from './profile.ts';
+import { createProfile } from '../../services/profile.service.ts';
+import { renderMutateHook } from '../../../test-utils/render.tsx';
+import { useCreateProfile } from './profile.commands.ts';
+import { waitFor } from '@testing-library/react';
+
+jest.mock('../../services/profile.service.ts', () => ({
+  createProfile: jest.fn(),
+}));
+
+describe('useCreateProfile', () => {
   const onError = jest.fn();
   const onSuccess = jest.fn();
 
-  const updateAssetBody: UpdateAssetBody = {
-    effectiveDate: '2021-01-01',
-    expirationDate: '2021-12-31',
-    externalIdentifiers: [
-      {
-        identifier: 'identifierA',
-        sourceName: 'Premiance',
-        sourceType: 'ERP',
-      },
-    ],
-    name: 'Asset 1',
+  const request: CreateProfileRequest = {
+    username: 'johndoe',
+    email: 'johndoe@banana.fr',
+    firstName: 'John',
+    lastName: 'Doe',
   };
 
   beforeEach(() => {
-    (updateAsset as jest.Mock).mockClear();
+    (createProfile as jest.Mock).mockClear();
   });
 
-  it('should update asset', async () => {
-    jest.spyOn(reactRouter, 'useParams').mockReturnValue({
-      assetIdentifier: 'identifierA',
-    });
-    const { result } = renderMutateHook(() => useUpdateAsset(onError, onSuccess));
-    (updateAsset as jest.Mock).mockImplementation(() => Promise.resolve());
+  it('should create profile', async () => {
+    const { result } = renderMutateHook(() => useCreateProfile(onError, onSuccess));
+    (createProfile as jest.Mock).mockImplementation(() => Promise.resolve());
 
-    result.current.mutate(updateAssetBody);
+    result.current.mutate(request);
 
-    await waitFor(() => expect(updateAsset).toHaveBeenCalledWith('ORGA', 'identifierA', updateAssetBody));
+    await waitFor(() => expect(createProfile).toHaveBeenCalledWith(request));
     await waitFor(() => expect(onSuccess).toHaveBeenCalled());
   });
 
@@ -41,73 +42,50 @@ describe('createProfile', () => {
         status: 500,
       },
     };
-    (updateAsset as jest.Mock).mockImplementation(() => Promise.reject(errorResponse));
+    (createProfile as jest.Mock).mockImplementation(() => Promise.reject(errorResponse));
 
-    jest.spyOn(reactRouter, 'useParams').mockReturnValue({
-      assetIdentifier: 'identifierA',
-    });
-    const { result } = renderMutateHook(() => useUpdateAsset(onError, onSuccess));
+    const { result } = renderMutateHook(() => useCreateProfile(onError, onSuccess));
 
-    result.current.mutate(updateAssetBody);
+    result.current.mutate(request);
 
-    await waitFor(() => expect(updateAsset).toHaveBeenCalledWith('ORGA', 'identifierA', updateAssetBody));
-    await waitFor(() => expect(onError).toHaveBeenCalledWith('Internal Server Error'));
+    await waitFor(() => expect(createProfile).toHaveBeenCalledWith(request));
+    await waitFor(() => expect(onError).toHaveBeenCalledWith(errorResponse));
   });
 
-  it('should handle error when no message', async () => {
-    const errorResponse = {
-      response: {
-        data: undefined,
-        status: 500,
-      },
-    };
-    (updateAsset as jest.Mock).mockImplementation(() => Promise.reject(errorResponse));
-
-    jest.spyOn(reactRouter, 'useParams').mockReturnValue({
-      assetIdentifier: 'identifierA',
-    });
-    const { result } = renderMutateHook(() => useUpdateAsset(onError, onSuccess));
-
-    result.current.mutate(updateAssetBody);
-
-    await waitFor(() => expect(updateAsset).toHaveBeenCalledWith('ORGA', 'identifierA', updateAssetBody));
-    await waitFor(() => expect(onError).toHaveBeenCalledWith(undefined));
-  });
-
-  it('should invalidate queries after updating asset', async () => {
-    jest.spyOn(reactRouter, 'useParams').mockReturnValue({
-      assetIdentifier: 'identifierA',
-    });
-    const invalidateQueriesMock = jest.fn();
-    (useQueryClient as jest.Mock).mockReturnValue({
-      invalidateQueries: invalidateQueriesMock,
-    });
-    (updateAsset as jest.Mock).mockImplementation(() => Promise.resolve());
-
-    const { result } = renderMutateHook(() => useUpdateAsset(onError, onSuccess));
-
-    result.current.mutate(updateAssetBody);
-
-    await waitFor(() => expect(invalidateQueriesMock).toHaveBeenCalledWith({
-      queryKey: [
-        'FETCH_ASSET',
-        'ORGA',
-        'identifierA',
-      ],
-    }));
-    await waitFor(() => expect(invalidateQueriesMock).toHaveBeenCalledWith({
-      queryKey: [
-        'FETCH_ASSET_EXTERNAL_IDENTIFIERS',
-        'ORGA',
-        'identifierA',
-      ],
-    }));
-    await waitFor(() => expect(invalidateQueriesMock).toHaveBeenCalledWith({
-      queryKey: [
-        'FETCH_HISTORY',
-        'ORGA',
-        'identifierA',
-      ],
-    }));
-  });
+  // it('should invalidate queries after updating asset', async () => {
+  //   jest.spyOn(reactRouter, 'useParams').mockReturnValue({
+  //     assetIdentifier: 'identifierA',
+  //   });
+  //   const invalidateQueriesMock = jest.fn();
+  //   (useQueryClient as jest.Mock).mockReturnValue({
+  //     invalidateQueries: invalidateQueriesMock,
+  //   });
+  //   (updateAsset as jest.Mock).mockImplementation(() => Promise.resolve());
+  //
+  //   const { result } = renderMutateHook(() => useUpdateAsset(onError, onSuccess));
+  //
+  //   result.current.mutate(request);
+  //
+  //   await waitFor(() => expect(invalidateQueriesMock).toHaveBeenCalledWith({
+  //     queryKey: [
+  //       'FETCH_ASSET',
+  //       'ORGA',
+  //       'identifierA',
+  //     ],
+  //   }));
+  //   await waitFor(() => expect(invalidateQueriesMock).toHaveBeenCalledWith({
+  //     queryKey: [
+  //       'FETCH_ASSET_EXTERNAL_IDENTIFIERS',
+  //       'ORGA',
+  //       'identifierA',
+  //     ],
+  //   }));
+  //   await waitFor(() => expect(invalidateQueriesMock).toHaveBeenCalledWith({
+  //     queryKey: [
+  //       'FETCH_HISTORY',
+  //       'ORGA',
+  //       'identifierA',
+  //     ],
+  //   }));
+  // });
 });
