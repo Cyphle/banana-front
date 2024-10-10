@@ -1,6 +1,6 @@
 import './Registration.scss';
 import { formOptions, useForm } from '@tanstack/react-form';
-import { Profile } from '../../stores/profile/profile.types.ts';
+import { CreateProfileRequest } from '../../stores/profile/profile.types.ts';
 import { Button, Form, Input } from 'antd';
 import { useCreateProfile } from '../../stores/profile/profile.commands.ts';
 import { useNavigate } from 'react-router';
@@ -22,7 +22,7 @@ export const Registration = () => {
     isPending: createProfileIsPending,
   } = useCreateProfile(onCreateProfileError, onCreateProfileSuccess);
 
-  const options = formOptions<Profile>({
+  const options = formOptions<CreateProfileRequest>({
     defaultValues: {
       username: '',
       email: '',
