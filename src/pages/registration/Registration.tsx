@@ -13,6 +13,7 @@ export const Registration = () => {
   };
 
   const onCreateProfileSuccess = () => {
+    // TODO do something better than redirecting to homepager
     navigate(`/`);
   };
 
