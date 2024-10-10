@@ -1,5 +1,5 @@
 import './Home.scss';
-import { RegistrationButton } from '../../components/registration-button/RegistrationButton.tsx';
+import { GoToRegistrationButton } from '../../components/go-to-registration-button/GoToRegistrationButton.tsx';
 
 export const Home = () => {
   return (
@@ -14,7 +14,7 @@ export const Home = () => {
 
         <p>Crée des comptes et ajoute tes dépenses en fonction de leurs natures</p>
 
-        <RegistrationButton />
+        <GoToRegistrationButton />
       </section>
 
       <section>
@@ -22,7 +22,7 @@ export const Home = () => {
 
         <p>Différencie tes comptes personnels, commun et épargne. Partage ceux que tu veux avec tes contacts</p>
 
-        <RegistrationButton />
+        <GoToRegistrationButton />
       </section>
     </div>
   )

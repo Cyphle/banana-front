@@ -1,11 +1,11 @@
 import { Button } from 'antd';
 import { useNavigate } from 'react-router';
-import './RegistrationButton.scss';
+import './GoToRegistrationButton.scss';
 
 export interface InscriptionButtonProps {
 }
 
-export const RegistrationButton = (_: InscriptionButtonProps) => {
+export const GoToRegistrationButton = (_: InscriptionButtonProps) => {
   const navigate = useNavigate();
 
   return (

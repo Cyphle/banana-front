@@ -38,7 +38,7 @@ export const Registration = () => {
   });
 
   return (
-    <div>
+    <div className="registration-page">
       <h1>Crée toi un compte</h1>
 
       <Form
