@@ -3,13 +3,12 @@ import { formOptions, useForm } from '@tanstack/react-form';
 import { Button, Form, Input } from 'antd';
 import { LoginRequest } from '../../stores/login/login.types.ts';
 import { useLogin } from '../../stores/login/login.commands.ts';
-import { useContext } from 'react';
-import { UserContext } from '../../contexts/user/UserContext.tsx';
+import { useUser } from '../../contexts/user/UserContext.tsx';
 import { AuthenticatedUser } from '../../contexts/user/user.types.ts';
 
 export const Login = () => {
   const navigate = useNavigate();
-  const { setUserState } = useContext(UserContext);
+  const { setUserState } = useUser();
 
   const onLoginError = (_: string) => {
     // TODO do something

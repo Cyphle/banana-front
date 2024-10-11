@@ -1,4 +1,4 @@
-import { createContext, Dispatch, PropsWithChildren, SetStateAction, useState } from 'react';
+import { createContext, Dispatch, PropsWithChildren, SetStateAction, useContext, useState } from 'react';
 import { AuthenticatedUser } from './user.types.ts';
 
 export interface UserContextType {
@@ -22,3 +22,5 @@ export const UserContextProvider = ({ children }: PropsWithChildren) => {
     </UserContext.Provider>
   );
 };
+
+export const useUser = () => useContext(UserContext);
