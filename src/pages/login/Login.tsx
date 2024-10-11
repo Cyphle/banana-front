@@ -3,16 +3,20 @@ import { formOptions, useForm } from '@tanstack/react-form';
 import { Button, Form, Input } from 'antd';
 import { LoginRequest } from '../../stores/login/login.types.ts';
 import { useLogin } from '../../stores/login/login.commands.ts';
+import { useContext } from 'react';
+import { UserContext } from '../../contexts/user/UserContext.tsx';
+import { AuthenticatedUser } from '../../contexts/user/user.types.ts';
 
 export const Login = () => {
   const navigate = useNavigate();
+  const { setUserState } = useContext(UserContext);
 
   const onLoginError = (_: string) => {
     // TODO do something
   };
 
-  const onLoginSuccess = () => {
-    // TODO setup user context here
+  const onLoginSuccess = (user: AuthenticatedUser) => {
+    setUserState(user);
     navigate(`/`);
   };
 
@@ -60,7 +64,7 @@ export const Login = () => {
                 value={ field.state.value }
                 onBlur={ field.handleBlur }
                 onChange={ (e: any) => field.handleChange(e.target.value) }
-                disabled={loginIsPending}
+                disabled={ loginIsPending }
                 placeholder="Nom d'utilisateur"/>
             </>
           ) }

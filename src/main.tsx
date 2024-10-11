@@ -4,6 +4,7 @@ import { ConfigProvider } from 'antd';
 import './main.scss'
 import { PRIMARY_COLOR } from './theme-variables.ts';
 import { Footer } from './shared/footer/Footer.tsx';
+import { UserContextProvider } from './contexts/user/UserContext.tsx';
 
 export async function appLoader() {
   return {};
@@ -12,13 +13,15 @@ export async function appLoader() {
 function Main() {
   return (
     <>
-      <ConfigProvider theme={ { token: { colorPrimary: PRIMARY_COLOR } } }>
-        <Header/>
+      <UserContextProvider>
+        <ConfigProvider theme={ { token: { colorPrimary: PRIMARY_COLOR } } }>
+          <Header/>
 
-        <Outlet/>
+          <Outlet/>
 
-        <Footer />
-      </ConfigProvider>
+          <Footer/>
+        </ConfigProvider>
+      </UserContextProvider>
     </>
   )
 }
