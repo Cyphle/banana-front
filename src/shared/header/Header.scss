@@ -11,12 +11,16 @@ header {
   color: $second-text-color;
 
   .banana-title {
-    display: flex;
-    align-items: center;
-    gap: 5px;
+    a {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      color: $second-text-color;
+      text-decoration: none;
 
-    svg {
-      color: white;
+      img {
+        height: 30px;
+      }
     }
   }
 }

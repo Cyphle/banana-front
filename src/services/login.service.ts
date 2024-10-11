@@ -8,6 +8,9 @@ export const login = (request: LoginRequest): Promise<LoginResponse> => {
 
 export const responseToLogin = (data: any): LoginResponse => {
   return {
-    username: data.username,
+    username: data.profile.username,
+    firstName: data.profile.firstName,
+    lastName: data.profile.lastName,
+    email: data.profile.email
   }
 }
