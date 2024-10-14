@@ -39,7 +39,7 @@ export const AccountsPage = () => {
         { (data as AccountSummary[]).map((account: AccountSummary) => (
           <li key={ account.id }>
             <span>{ account.name }</span>
-            <span>{ account.balance }</span>
+            <span>{ account.startingBalance }</span>
             <span>{ account.projectedBalance }</span>
             <button onClick={ () => navigate(`/accounts/${ account.id }`) }>Go</button>
           </li>

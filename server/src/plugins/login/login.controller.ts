@@ -15,6 +15,9 @@ export const loginController = (handler: (database: Database) => (command: Login
 
     const profile = handler(database)(command);
 
+    // @ts-ignore
+    request.session.user = { username: profile.username };
+
     reply
       .code(201)
       .header('Content-Type', 'application/json; charset=utf-8')

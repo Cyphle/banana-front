@@ -1,5 +1,5 @@
 import { Database } from '../../database/database';
-import { Account, CreateAccountCommand } from './account.types';
+import { Account, CreateAccountRequest } from './account.types';
 
 export const getAccountsHandler = (database: Database): Account[] => {
   return database.read('accounts');
@@ -9,7 +9,7 @@ export const getAccountByIdHandler = (database: Database) => (id: number): Accou
   return database.readOneById('accounts', id);
 }
 
-export const createAccountHandler = (database: Database) => (createAccountCommand: CreateAccountCommand): Account => {
+export const createAccountHandler = (database: Database) => (createAccountCommand: CreateAccountRequest): Account => {
   // Some domain logic...
   const account: Account = {
     id: 0,

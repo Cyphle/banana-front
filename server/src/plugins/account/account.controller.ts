@@ -1,6 +1,6 @@
 import { FastifyInstance, FastifyReply } from 'fastify';
 import { CustomFastifyRequest } from '../../fastify.types';
-import { Account, CreateAccountCommand } from './account.types';
+import { Account, CreateAccountRequest } from './account.types';
 import { Database } from '../../database/database';
 import { getNumberParam, getStringBodyElement } from '../../helpers/fastify.helpers';
 import { database } from '../../config/database.config';
@@ -10,6 +10,9 @@ export const listAccountsController = (handler: (database: Database) => Account[
   fastify.get('/', (request: CustomFastifyRequest, reply: FastifyReply) => {
     console.log('in get account controller', request.user);
     const accounts = handler(request.database!);
+
+    // @ts-ignore
+    console.log('test session ', request.session.user);
 
     reply
       .code(200)
@@ -30,9 +33,9 @@ export const getAccountByIdController = (handler: (database: Database) => (id: n
   })
 }
 
-export const createAccountController = (handler: (database: Database) => (command: CreateAccountCommand) => Account) => (fastify: FastifyInstance) => {
+export const createAccountController = (handler: (database: Database) => (command: CreateAccountRequest) => Account) => (fastify: FastifyInstance) => {
   fastify.post('/', (request: CustomFastifyRequest, reply: FastifyReply) => {
-    const command: CreateAccountCommand = {
+    const command: CreateAccountRequest = {
       name: getStringBodyElement<string>(request, 'name')
     }
     const account = handler(database)(command);
