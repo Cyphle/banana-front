@@ -1,7 +1,6 @@
 import { CreateProfileRequest, Profile } from '../stores/profile/profile.types.ts';
 import { post } from '../helpers/http.ts';
 
-// TODO to be tested
 export const createProfile = (request: CreateProfileRequest): Promise<Profile> => {
   return post<CreateProfileRequest, Profile>('profiles', request, responseToProfile);
 }

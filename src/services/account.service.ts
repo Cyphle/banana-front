@@ -1,7 +1,6 @@
 import { getMany, getOne } from '../helpers/http.ts';
 import { Account, AccountSummary, AccountTransaction, Budget } from '../stores/account/account.types.ts';
 
-// TODO to be tested
 export const getAccountSummaries = (): Promise<AccountSummary[]> => {
   return getMany(`accounts`, responseToAccountSummaries);
 }
