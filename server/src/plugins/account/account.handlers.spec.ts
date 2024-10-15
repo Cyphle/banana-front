@@ -15,7 +15,13 @@ describe('Account handlers', () => {
   });
 
   it('should create an account', () => {
-    const account = createAccountHandler(mockDatabase)({ name: 'Another account' });
+    const account = createAccountHandler(mockDatabase)({ 
+      name: 'Another account',
+      type: 'PERSONAL',
+      startingBalance: 1000,
+      currentBalance: 1000,
+      projectedBalance: 1000
+    });
 
     expect(account).toEqual({ id: 2, name: 'Another account'});
   });

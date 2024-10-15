@@ -36,7 +36,11 @@ export const getAccountByIdController = (handler: (database: Database) => (id: n
 export const createAccountController = (handler: (database: Database) => (command: CreateAccountRequest) => Account) => (fastify: FastifyInstance) => {
   fastify.post('/', (request: CustomFastifyRequest, reply: FastifyReply) => {
     const command: CreateAccountRequest = {
-      name: getStringBodyElement<string>(request, 'name')
+      name: getStringBodyElement<string>(request, 'name'),
+      type: getStringBodyElement<string>(request, 'type'),
+      startingBalance: getStringBodyElement<number>(request, 'startingBalance'),
+      currentBalance: getStringBodyElement<number>(request, 'currentBalance'),
+      projectedBalance: getStringBodyElement<number>(request, 'projectedBalance'),
     }
     const account = handler(database)(command);
 

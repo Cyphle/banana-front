@@ -1,15 +1,17 @@
 [
   {
-    "id": 1,
-    "name": "Commun CIC",
-    "type": "SHARED",
-    "period": {
-      "from": "2024-01-01",
-      "to": "2024-01-31"
+    "summary": {
+      "id": 1,
+      "name": "Commun CIC",
+      "type": "SHARED",
+      "period": {
+        "from": "2024-01-01",
+        "to": "2024-01-31"
+      },
+      "startingBalance": 12403.76,
+      "currentBalance": 226.39,
+      "projectedBalance": 226.39
     },
-    "startingBalance": 12403.76,
-    "currentBalance": 226.39,
-    "projectedBalance": 226.39,
     "budgets": [
       {
         "id": 1,
@@ -91,25 +93,35 @@
     }
   },
   {
-    "id": 2,
-    "name": "Boursobank",
-    "type": "PERSONAL",
-    "period": {
-      "from": "2024-01-01",
-      "to": "2024-01-31"
+    "summary": {
+      "id": 2,
+      "name": "Boursobank",
+      "type": "PERSONAL",
+      "period": {
+        "from": "2024-01-01",
+        "to": "2024-01-31",
+        "startingBalance": 220.0,
+        "projectedBalance": 200.0
+      }
     },
-    "balance": 220.0,
-    "projectedBalance": 200.0
+    "budgets": [],
+    "transactions": [],
+    "parameters": {}
   },
   {
-    "id": 3,
-    "name": "Boursobank Livret+",
-    "type": "SAVING",
-    "period": {
-      "from": "2024-01-01",
-      "to": "2024-01-31"
+    "summary": {
+      "id": 3,
+      "name": "Boursobank Livret+",
+      "type": "SAVING",
+      "period": {
+        "from": "2024-01-01",
+        "to": "2024-01-31",
+        "startingBalance": 330.0,
+        "projectedBalance": 300.0
+      }
     },
-    "balance": 330.0,
-    "projectedBalance": 300.0
+    "budgets": [],
+    "transactions": [],
+    "parameters": {}
   }
 ]

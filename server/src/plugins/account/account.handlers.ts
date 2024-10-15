@@ -9,11 +9,22 @@ export const getAccountByIdHandler = (database: Database) => (id: number): Accou
   return database.readOneById('accounts', id);
 }
 
-export const createAccountHandler = (database: Database) => (createAccountCommand: CreateAccountRequest): Account => {
-  // Some domain logic...
+export const createAccountHandler = (database: Database) => (request: CreateAccountRequest): Account => {
+  const accounts = database.read<Account>('accounts')
+    .sort((a: Account, b: Account) => a.summary.id - b.summary.id)
+    .reverse();
+
   const account: Account = {
-    id: 0,
-    name: createAccountCommand.name
+    summary: {
+      id: (accounts[0]?.summary.id ?? 0) + 1,
+      name: request.name,
+      type: request.type,
+      startingBalance: request.startingBalance,
+      currentBalance: request.currentBalance,
+      projectedBalance: request.projectedBalance,
+    },
+    budgets: [],
+    transactions: [],
   }
   return database.create<Account>('accounts', account);
 }

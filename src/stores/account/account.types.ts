@@ -2,7 +2,7 @@ export interface AccountSummary {
   id: number;
   name: string;
   type: string;
-  period: {
+  period?: {
     from: string;
     to: string;
   },
@@ -15,7 +15,7 @@ export interface Account {
   summary: AccountSummary;
   budgets: Budget[];
   transactions: AccountTransaction[];
-  parameters: AccountParameters;
+  parameters?: AccountParameters;
 }
 
 export interface Budget {

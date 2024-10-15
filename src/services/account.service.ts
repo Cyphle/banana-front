@@ -51,15 +51,15 @@ const toTransaction = (transaction: any): AccountTransaction => {
 
 const toAccountSummary = (account: any): AccountSummary => {
   return {
-    id: account.id,
-    name: account.name,
-    type: account.type,
-    period: {
-      from: account.period.from,
-      to: account.period.to
-    },
-    startingBalance: account.startingBalance,
-    currentBalance: account.balance,
-    projectedBalance: account.projectedBalance,
+    id: account.summary.id,
+    name: account.summary.name,
+    type: account.summary.type,
+    period: account.summary.period ? {
+      from: account.summary.period.from,
+      to: account.summary.period.to
+    } : undefined,
+    startingBalance: account.summary.startingBalance,
+    currentBalance: account.summary.balance,
+    projectedBalance: account.summary.projectedBalance,
   }
 }
