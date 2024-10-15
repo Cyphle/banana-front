@@ -12,6 +12,7 @@ import {
   UseMutationResult,
   UseQueryResult
 } from '@tanstack/react-query';
+import { MemoryRouter } from 'react-router-dom';
 
 export const render = (ui: React.ReactNode) => {
   const queryClient = new QueryClient({ defaultOptions: { queries: { retry: false } } });
@@ -56,8 +57,10 @@ export const renderMutateHook = <TData, TError, TVariables, TContext>(hook: () =
   return testingLibraryRenderHook(hook, { wrapper });
 };
 
-// export const renderContextHook = (hook: () => any) => {
-//   const wrapper = ({ children }: PropsWithChildren) => <ClientContextProvider>{ children }</ClientContextProvider>;
-//
-//   return testingLibraryRenderHook(hook, { wrapper });
-// }
+export const renderWithRouter = (component: React.ReactNode) => {
+  return render(
+    <MemoryRouter>
+      {component}
+    </MemoryRouter>
+  );
+};

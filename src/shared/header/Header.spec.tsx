@@ -1,60 +1,70 @@
-// import { render, screen } from '../../../test-utils';
-// import { Header } from './Header.tsx';
-// import { fireEvent, waitFor } from '@testing-library/react';
-// import { useUser } from '../../contexts/user/UserContext.tsx';
+import { NavLink } from 'react-router-dom';
+import { screen } from '../../../test-utils';
+import { renderWithRouter } from '../../../test-utils/render';
+import { useUser } from '../../contexts/user/UserContext';
+import { Header } from './Header';
 
-// jest.mock('../../contexts/user/UserContext.tsx', () => ({
-//   useUser: jest.fn().mockImplementation(() => ({
-//     userState: { firstName: 'John', lastName: 'Doe' },
-//   })),
-// }));
+jest.mock('react-router-dom', () => {
+  const originalModule = jest.requireActual('react-router-dom');
+  return {
+    ...originalModule,
+    NavLink: jest.fn(({ children, to }) => <a href={to}>{children}</a>),
+  };
+});
 
-// describe('Header', () => {
-//   beforeEach(() => {
-//     (useUser as jest.Mock).mockClear();
-//   });
+jest.mock('../../contexts/user/UserContext', () => ({
+  useUser: jest.fn(),
+}));
 
-//   test('should render header', () => {
-//     render(<Header />);
+jest.mock('../menu/Menu', () => ({
+  Menu: () => <div data-testid="menu-component">Menu Component</div>,
+}));
 
-//     const bananaTitle = screen.getByText('Banana');
-//     expect(bananaTitle).toBeInTheDocument();
+jest.mock('../../assets/banana.png', () => 'mocked-banana-image');
 
-//     const logo = screen.getByAltText('Banana logo') as HTMLImageElement;
-//     expect(logo).toBeInTheDocument();
-//     expect(logo.src).toContain('banana.png');
+describe('Header Component', () => {
+  beforeEach(() => {
+    (useUser as jest.Mock).mockReturnValue({
+      userState: { firstName: 'John', lastName: 'Doe' },
+    });
+  });
 
-//     const userInfo = screen.getByText('John Doe');
-//     expect(userInfo).toBeInTheDocument();
+  it('renders the header with correct elements', () => {
+    renderWithRouter(<Header />);
 
-//     const menu = screen.getByRole('navigation');
-//     expect(menu).toBeInTheDocument();
-//   });
+    // Check if the logo and title are rendered
+    const logoLink = screen.getByRole('link', { name: /banana/i });
+    expect(logoLink).toBeInTheDocument();
+    expect(logoLink).toHaveAttribute('href', '/');
 
-//   test('should navigate to home when logo is clicked', async () => {
-//     const { container } = render(<Header />);
+    // Check if user info is rendered
+    const userInfo = screen.getByText('John Doe');
+    expect(userInfo).toBeInTheDocument();
 
-//     const logoLink = container.querySelector('.banana-title a');
-//     expect(logoLink).toBeInTheDocument();
-//     expect(logoLink).toHaveAttribute('href', '/');
+    // Check if Menu component is rendered
+    const menuComponent = screen.getByTestId('menu-component');
+    expect(menuComponent).toBeInTheDocument();
+  });
 
-//     fireEvent.click(logoLink as HTMLElement);
+  it('uses NavLink for the logo', () => {
+    renderWithRouter(<Header />);
+    expect(NavLink).toHaveBeenCalledWith(
+      expect.objectContaining({ to: '/' }),
+      expect.anything()
+    );
+  });
 
-//     await waitFor(() => {
-//       expect(window.location.pathname).toBe('/');
-//     });
-//   });
+  it('displays user information from useUser hook', () => {
+    (useUser as jest.Mock).mockReturnValue({
+      userState: { firstName: 'Jane', lastName: 'Smith' },
+    });
 
-//   test('should render user information from useUser hook', () => {
-//     (useUser as jest.Mock).mockImplementation(() => ({
-//       userState: { firstName: 'Jane', lastName: 'Smith' },
-//     }));
+    renderWithRouter(<Header />);
 
-//     render(<Header />);
+    const userInfo = screen.getByText('Jane Smith');
+    expect(userInfo).toBeInTheDocument();
 
-//     const userInfo = screen.getByText('Jane Smith');
-//     expect(userInfo).toBeInTheDocument();
-//   });
-// });
-
+    expect(useUser).toHaveBeenCalled();
+  });
+});
 
