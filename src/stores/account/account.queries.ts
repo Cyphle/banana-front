@@ -1,10 +1,10 @@
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
-import { getAccount, getAccounts } from '../../services/account.service.ts';
+import { getAccount, getAccountSummaries } from '../../services/account.service.ts';
 
-export const useFetchAccounts = (): UseQueryResult => {
+export const useFetchAccountSummaries = (): UseQueryResult => {
   return useQuery({
     queryKey: ['account'],
-    queryFn: getAccounts
+    queryFn: getAccountSummaries
   });
 }
 

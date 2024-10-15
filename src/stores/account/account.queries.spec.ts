@@ -1,25 +1,47 @@
-import { useFetchAccounts } from './account.queries.ts';
-import { getAccounts } from '../../services/account.service.ts';
 import { waitFor } from '@testing-library/react';
 import { renderQueryHook } from '../../../test-utils/render.tsx';
+import { getAccount, getAccountSummaries } from '../../services/account.service.ts';
+import { useFetchAccount, useFetchAccountSummaries } from './account.queries.ts';
 
 jest.mock('../../services/account.service.ts', () => ({
-  getAccounts: jest.fn(),
+  getAccountSummaries: jest.fn(),
+  getAccount: jest.fn()
 }));
 
 describe('account queries', () => {
-  it('should fetch account', async () => {
-    jest.mocked(getAccounts).mockResolvedValue([{
+  test('should fetch accounts', async () => {
+    jest.mocked(getAccountSummaries).mockResolvedValue([{
       id: 1,
       name: 'My Account',
       type: 'PERSONAL',
-      balance: 100.0,
+      startingBalance: 100.0,
+      currentBalance: 100.0,
       projectedBalance: 100.0
     }]);
 
-    const { result } = renderQueryHook(() => useFetchAccounts());
+    const { result } = renderQueryHook(() => useFetchAccountSummaries());
 
-    expect(getAccounts).toHaveBeenCalled();
+    expect(getAccountSummaries).toHaveBeenCalled();
+    await waitFor(() => expect(result.current.isSuccess).toBe(true));
+  });
+
+  test('should fetch one account', async () => {
+    jest.mocked(getAccount).mockResolvedValue({
+      summary: {
+        id: 1,
+        name: 'My Account',
+        type: 'PERSONAL',
+        startingBalance: 100.0,
+        currentBalance: 100.0,
+        projectedBalance: 100.0
+      },
+      budgets: [],
+      transactions: []
+    });
+
+    const { result } = renderQueryHook(() => useFetchAccount(1));
+
+    expect(getAccount).toHaveBeenCalled();
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
   });
 });

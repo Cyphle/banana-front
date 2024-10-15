@@ -2,16 +2,16 @@ import { getMany, getOne } from '../helpers/http.ts';
 import { Account, AccountSummary, AccountTransaction, Budget } from '../stores/account/account.types.ts';
 
 // TODO to be tested
-export const getAccounts = (): Promise<AccountSummary[]> => {
-  return getMany(`accounts`, responseToAccounts);
+export const getAccountSummaries = (): Promise<AccountSummary[]> => {
+  return getMany(`accounts`, responseToAccountSummaries);
 }
 
-export const responseToAccounts = (data: any): AccountSummary[] => {
+export const responseToAccountSummaries = (data: any): AccountSummary[] => {
   return data.map((account: any) => toAccountSummary(account));
 }
 
 export const getAccount = (id: number): Promise<Account> => {
-  return getOne(`accounts/${ id }`, responseToAccount);
+  return getOne(`accounts/${id}`, responseToAccount);
 }
 
 export const responseToAccount = (data: any): Account => {
@@ -30,7 +30,7 @@ const toBudget = (budget: any): Budget => {
     actualAmount: budget.actualAmount,
     name: budget.name,
     startDate: budget.startDate,
-    endDate:budget.endDate,
+    endDate: budget.endDate,
     frequency: budget.frequency,
   }
 }
@@ -59,7 +59,7 @@ const toAccountSummary = (account: any): AccountSummary => {
       to: account.summary.period.to
     } : undefined,
     startingBalance: account.summary.startingBalance,
-    currentBalance: account.summary.balance,
+    currentBalance: account.summary.currentBalance,
     projectedBalance: account.summary.projectedBalance,
   }
 }

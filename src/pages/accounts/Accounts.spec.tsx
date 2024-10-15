@@ -1,145 +1,35 @@
-import { render } from '../../../test-utils/render.tsx';
+import { render, screen } from '../../../test-utils';
 import { AccountsPage } from './Accounts.tsx';
-import { useFetchAccounts } from '../../stores/account/account.queries.ts';
+import { useFetchAccountSummaries } from '../../stores/account/account.queries.ts';
 
 jest.mock('react-router', () => ({
   useNavigate: jest.fn(),
 }));
 
 jest.mock('../../stores/account/account.queries.ts', () => ({
-  useFetchAccounts: jest.fn(),
+  useFetchAccountSummaries: jest.fn(),
 }));
-
-// jest.mock('hooks/useCurrentOrganization', () => ({
-//   useCurrentOrganization: jest.fn(() => Promise.resolve('ORGA')),
-// }));
-//
-// jest.mock('components/Loader/Loader', () => ({
-//   Loader: () => <div>LOADING</div>,
-// }));
-//
-// jest.mock('components/Tabs/Tab', () => ({
-//   Tab: ({
-//           onClick = () => {}, value
-//         }: TabProps) => (
-//     <div onClick={() => onClick(value)}>{value}</div>
-//   ),
-// }));
-//
-// jest.mock('./DataTab/DataTab', () => ({
-//   DataTab: () => <div>DATA_TAB</div>,
-// }));
 
 describe('Accounts Page', () => {
   it('should render data', () => {
-    (useFetchAccounts as jest.Mock).mockImplementation(() => ({
-      data: {
-        assetType: 'BUILDING',
-        effectiveDate: '2001-06-16',
-        expirationDate: '2025-06-16',
-        externalIdentifier: {
-          identifier: 'A1',
-          sourceName: 'Premiance',
-          sourceType: 'ERP',
-        },
-        name: 'Université',
-        stonalIdentifier: 'identifierA1',
-      },
+    (useFetchAccountSummaries as jest.Mock).mockImplementation(() => ({
+      data: [
+        {
+          id: 1,
+          name: 'My Account',
+          type: 'PERSONAL',
+          startingBalance: 100.0,
+          currentBalance: 100.0,
+          projectedBalance: 100.0
+        }
+      ],
       isPending: false,
     }));
 
-    const { container } = render(<AccountsPage/>);
+    render(<AccountsPage/>);
 
-    expect(container).toMatchInlineSnapshot(`
-      <div>
-        My accounts
-      </div>
-    `);
+    const listElements = screen.getAllByRole('listitem');
+
+    expect(listElements).toHaveLength(1);
   });
-
-  // it('should render in loading state', () => {
-  //   (useFetchAsset as jest.Mock).mockImplementation(() => ({
-  //     isLoading: true,
-  //   }));
-  //
-  //   const { container } = render(<AssetPage />);
-  //
-  //   expect(container).toMatchInlineSnapshot(`
-  //     <div>
-  //       <div>
-  //         LOADING
-  //       </div>
-  //     </div>
-  //   `);
-  // });
-  //
-  // it('should render in error state', () => {
-  //   (useFetchAsset as jest.Mock).mockImplementation(() => ({
-  //     isError: true,
-  //   }));
-  //
-  //   const { container } = render(<AssetPage />);
-  //
-  //   expect(container).toMatchInlineSnapshot(`
-  //     <div>
-  //       <div
-  //         class=""
-  //         style="min-height: var(--mantine-spacing-lg);"
-  //       />
-  //       <div
-  //         class="m-7485cace mantine-Container-root"
-  //       >
-  //         LOADING_ERROR
-  //       </div>
-  //     </div>
-  //   `);
-  // });
-
-  // describe('should navigate', () => {
-  //   beforeAll(() => {
-  //     (useFetchAsset as jest.Mock).mockImplementation(() => ({
-  //       data: {
-  //         assetType: 'BUILDING',
-  //         effectiveDate: '2001-06-16',
-  //         expirationDate: '2025-06-16',
-  //         externalIdentifier: {
-  //           identifier: 'A1',
-  //           sourceName: 'Premiance',
-  //           sourceType: 'ERP',
-  //         },
-  //         name: 'Université',
-  //         stonalIdentifier: 'identifierA1',
-  //       },
-  //       isLoading: false,
-  //     }));
-  //   });
-  //
-  //   it('to data tab', () => {
-  //     render(<AssetPage />);
-  //
-  //     fireEvent.click(screen.getByText('#data'));
-  //
-  //     expect(mockNavigate).toHaveBeenCalledWith('/asset-type/BUILDING#data');
-  //   });
-  //
-  //   it('to externalIdentifiers tab', () => {
-  //     render(<AssetPage />);
-  //
-  //     fireEvent.click(screen.getByText('#externalIdentifiers'));
-  //
-  //     expect(mockNavigate).toHaveBeenCalledWith(
-  //       '/asset-type/BUILDING#externalIdentifiers'
-  //     );
-  //   });
-  //
-  //   it('to linkedAssets tab', () => {
-  //     render(<AssetPage />);
-  //
-  //     fireEvent.click(screen.getByText('#linkedAssets'));
-  //
-  //     expect(mockNavigate).toHaveBeenCalledWith(
-  //       '/asset-type/BUILDING#linkedAssets'
-  //     );
-  //   });
-  // });
 });
