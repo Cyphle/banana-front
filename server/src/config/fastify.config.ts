@@ -1,7 +1,7 @@
 import fastify, { FastifyInstance, FastifyPluginOptions } from 'fastify';
 import cors from '@fastify/cors'
 import fastifyCookie from '@fastify/cookie';
-import fastifySession from '@fastify/session';
+import fastifySession from '@fastify/secure-session';
 
 export const initFastify = (
   decorators: ((fastify: FastifyInstance) => void)[] = [],
@@ -13,7 +13,15 @@ export const initFastify = (
 
   server.register(cors, {});
   server.register(fastifyCookie, {});
-  server.register(fastifySession, { secret: 'superverylongsessionsecrettohashthingswhichhastobereplacedwheninproduction' });
+  // @ts-ignore
+  server.register(fastifySession, {
+    secret: 'a-very-secure-secret-keythatisverylonglonglong', // TODO Use a proper secret key in production
+    cookie: {
+      path: '/',
+      httpOnly: true,
+      secure: false,  // TODO In production, set to true for HTTPS
+    },
+  });
 
   decorators.forEach(decorator => decorator(server));
 

@@ -12,11 +12,11 @@ export const loginController = (handler: (database: Database) => (command: Login
       username: getStringBodyElement<string>(request, 'username'),
       password: getStringBodyElement<string>(request, 'password')
     }
-
+    
     const profile = handler(database)(command);
 
     // @ts-ignore
-    request.session.user = { username: profile.username };
+    request.session.user = profile.username;
 
     reply
       .code(201)

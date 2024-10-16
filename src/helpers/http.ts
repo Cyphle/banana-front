@@ -1,8 +1,10 @@
-export const BASE_PATH = 'http://localhost:3000';
+export const BASE_PATH = 'api';
 
 // TODO to be tested
 export const getMany = <T>(path: string, mapper: (data: any) => T[]): Promise<T[]> => {
-  return fetch(`${BASE_PATH}/${path}`)
+  return fetch(`${BASE_PATH}/${path}`, {
+    method: 'GET',
+  })
     .then(response => {
       return response.json();
     })
@@ -14,7 +16,8 @@ export const getMany = <T>(path: string, mapper: (data: any) => T[]): Promise<T[
 
 // TODO to be tested
 export const getOne = <T>(path: string, mapper: (data: any) => T): Promise<T> => {
-  return fetch(`${BASE_PATH}/${path}`)
+  return fetch(`${BASE_PATH}/${path}`, {
+  })
     .then(response => {
       return response.json();
     })

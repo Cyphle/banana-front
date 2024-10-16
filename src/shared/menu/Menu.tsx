@@ -1,14 +1,16 @@
 import { NavLink } from 'react-router-dom';
 import './Menu.scss';
+import { RouteDefinition, ROUTES_PATHS } from '../../Routes';
 
 // TODO to be tested
 export const Menu = () => {
-  const navItems = [
-    { id: 1, text: 'Mes comptes', path: '/accounts' },
-    { id: 2, text: 'Profil', path: '/profile' },
-    { id: 3, text: 'S\'inscrire', path: '/subscribe' },
-    { id: 4, text: 'Se connecter', path: '/login' }
-  ];
+  const navItems = ROUTES_PATHS
+  .filter((route: RouteDefinition) => !!route.id)
+  .map((route: RouteDefinition) => ({
+    id: route.id,
+    name: route.name,
+    path: `/${route.path}`
+  }));
 
   return (
     <div className="main-menu">
@@ -28,7 +30,7 @@ export const Menu = () => {
                     : ''
               }
             >
-              {item.text}
+              {item.name}
             </NavLink>
           </li>
         ))}
