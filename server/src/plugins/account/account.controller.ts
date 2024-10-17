@@ -12,7 +12,7 @@ export const listAccountsController = (handler: (database: Database) => Account[
     const accounts = handler(request.database!);
 
     // @ts-ignore
-    console.log('test session user', request.session.user);
+    console.log('test session user', request.session.get('user'));
     console.log(request.cookies);
 
     reply

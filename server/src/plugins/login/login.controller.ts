@@ -6,17 +6,14 @@ import { getStringBodyElement } from '../../helpers/fastify.helpers';
 import { database } from '../../config/database.config';
 import { LoginRequest } from './login.types';
 
-export const loginController = (handler: (database: Database) => (command: LoginRequest) => Profile) => (fastify: FastifyInstance): void => {
+export const loginController = (handler: (database: Database) => (request: CustomFastifyRequest, command: LoginRequest) => Profile) => (fastify: FastifyInstance): void => {
   fastify.post('/', (request: CustomFastifyRequest, reply: FastifyReply) => {
-    const command = {
+    const loginRequest = {
       username: getStringBodyElement<string>(request, 'username'),
       password: getStringBodyElement<string>(request, 'password')
     }
     
-    const profile = handler(database)(command);
-
-    // @ts-ignore
-    request.session.user = profile.username;
+    const profile = handler(database)(request, loginRequest);
 
     reply
       .code(201)
