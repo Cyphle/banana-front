@@ -1,5 +1,4 @@
 export interface AccountSummary {
-  id: number;
   name: string;
   type: string;
   period?: {
@@ -12,6 +11,7 @@ export interface AccountSummary {
 }
 
 export interface Account {
+  id: number;
   summary: AccountSummary;
   budgets: Budget[];
   transactions: AccountTransaction[];

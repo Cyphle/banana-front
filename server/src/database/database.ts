@@ -49,9 +49,13 @@ export class Database {
 
   create<T>(tableName: string, item: T): T {
     const table = this.data[tableName];
+    // @ts-ignore
+    const sortedItems = table.sort((a: T, b: T) => a.id - b.id).reverse();
+    // @ts-ignore
+    const requestedId = !!item.id ? item.id : table.length ? sortedItems[0].id + 1 : 1;
     const indexedItem = {
       ...item,
-      id: table.length ? table[table.length - 1].id + 1 : 1,
+      id: requestedId,
     }
     this.data[tableName] = [
       ...table,

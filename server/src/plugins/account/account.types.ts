@@ -1,5 +1,4 @@
 export interface AccountSummary {
-  id: number;
   name: string;
   type: string;
   period?: {
@@ -12,6 +11,8 @@ export interface AccountSummary {
 }
 
 export interface Account {
+  id: number;
+  username: string;
   summary: AccountSummary;
   budgets: Budget[];
   transactions: AccountTransaction[];
@@ -56,9 +57,18 @@ export interface AccountParameters {
 }
 
 export interface CreateAccountRequest {
+  username: string;
   name: string;
   type: string;
   startingBalance: number;
   currentBalance: number;
   projectedBalance: number;
+}
+
+export interface AccountView {
+  id: number;
+  summary: AccountSummary;
+  budgets: Budget[];
+  transactions: AccountTransaction[];
+  parameters?: AccountParameters;
 }

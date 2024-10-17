@@ -3,13 +3,13 @@ import { createAccountController, getAccountByIdController, listAccountsControll
 import { createAccountHandler, getAccountByIdHandler, getAccountsHandler } from './account.handlers';
 
 describe('Account controller', () => {
-  test('should get account', done => {
+  test('should get all accounts', done => {
     mockFastify({}, [listAccountsController(getAccountsHandler)])
       .inject()
       .get('/')
       .end((err, res) => {
         expect(res?.statusCode).toEqual(200);
-        expect(res?.body).toEqual('[{"id":1,"name":"Commun CIC"}]');
+        expect(JSON.parse(res?.body ?? '{}')).toHaveLength(4);
         done();
       });
   });
@@ -20,7 +20,7 @@ describe('Account controller', () => {
       .get('/1')
       .end((err, res) => {
         expect(res?.statusCode).toEqual(200);
-        expect(res?.body).toEqual('{"id":1,"name":"Commun CIC"}');
+        expect(JSON.parse(res?.body ?? '{}').id).toEqual(1);
         done();
       });
   });
@@ -32,7 +32,7 @@ describe('Account controller', () => {
       .body({ name: 'Another account' })
       .end((err, res) => {
         expect(res?.statusCode).toEqual(200);
-        expect(res?.body).toEqual('{"id":2,"name":"Another account"}');
+        expect(JSON.parse(res?.body ?? '{}')).toEqual({ id: 5, summary: { name: 'Another account' }, budgets: [], transactions: [] });
         done();
       });
   });

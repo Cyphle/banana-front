@@ -10,7 +10,7 @@ describe('Profile controller', () => {
       .query({ username: 'john.doe' })
       .end((err, res) => {
         expect(res?.statusCode).toEqual(200);
-        expect(res?.body).toEqual('{"profile":{"id":1,"username":"john.doe","firstName":"John","lastName":"Doe","email":"johndoe@banana.fr"}}');
+        expect(JSON.parse(res?.body ?? '{}')).toEqual({ profile: { id: 1, username: 'john.doe', firstName: 'John', lastName: 'Doe', email: 'john.doe@banana.fr' } });
         done();
       });
   });
@@ -21,7 +21,7 @@ describe('Profile controller', () => {
       .post('/')
       .body({
         username: 'john.doe',
-        email: 'johndoe@banana.fr',
+        email: 'john.doe@banana.fr',
         firstName: 'John',
         lastName: 'Doe'
       })

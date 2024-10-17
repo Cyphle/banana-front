@@ -1,7 +1,8 @@
 [
   {
+    "id": 1,
+    "username": "john.doe",
     "summary": {
-      "id": 1,
       "name": "Commun CIC",
       "type": "SHARED",
       "period": {
@@ -93,8 +94,9 @@
     }
   },
   {
+    "id": 2,
+    "username": "john.doe",
     "summary": {
-      "id": 2,
       "name": "Boursobank",
       "type": "PERSONAL",
       "period": {
@@ -109,10 +111,28 @@
     "parameters": {}
   },
   {
+    "id": 3,
+    "username": "john.doe",
     "summary": {
-      "id": 3,
       "name": "Boursobank Livret+",
       "type": "SAVING",
+      "period": {
+        "from": "2024-01-01",
+        "to": "2024-01-31",
+        "startingBalance": 330.0,
+        "projectedBalance": 300.0
+      }
+    },
+    "budgets": [],
+    "transactions": [],
+    "parameters": {}
+  },
+  {
+    "id": 4,
+    "username": "john.smith ",
+    "summary": {
+      "name": "Boursobank",
+      "type": "PERSONAL",
       "period": {
         "from": "2024-01-01",
         "to": "2024-01-31",

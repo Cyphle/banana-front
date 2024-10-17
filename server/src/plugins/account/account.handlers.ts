@@ -1,22 +1,24 @@
 import { Database } from '../../database/database';
-import { Account, CreateAccountRequest } from './account.types';
+import { Account, AccountView, CreateAccountRequest } from './account.types';
 
-export const getAccountsHandler = (database: Database): Account[] => {
-  return database.read('accounts');
+export const getAccountsHandler = (database: Database): AccountView[] => {
+  return database.read<Account>('accounts').map((account: Account) => mapAccountToAccountView(account));
 }
 
-export const getAccountByIdHandler = (database: Database) => (id: number): Account => {
-  return database.readOneById('accounts', id);
+export const getAccountByIdHandler = (database: Database) => (id: number): AccountView => {
+  const account = database.readOneById<Account>('accounts', id);
+  return mapAccountToAccountView(account);
 }
 
-export const createAccountHandler = (database: Database) => (request: CreateAccountRequest): Account => {
+export const createAccountHandler = (database: Database) => (request: CreateAccountRequest): AccountView => {
   const accounts = database.read<Account>('accounts')
-    .sort((a: Account, b: Account) => a.summary.id - b.summary.id)
+    .sort((a: Account, b: Account) => a.id - b.id)
     .reverse();
 
   const account: Account = {
+    id: (accounts[0]?.id ?? 0) + 1,
+    username: request.username,
     summary: {
-      id: (accounts[0]?.summary.id ?? 0) + 1,
       name: request.name,
       type: request.type,
       startingBalance: request.startingBalance,
@@ -26,5 +28,17 @@ export const createAccountHandler = (database: Database) => (request: CreateAcco
     budgets: [],
     transactions: [],
   }
-  return database.create<Account>('accounts', account);
+
+  const mapped = mapAccountToAccountView(database.create<Account>('accounts', account));
+
+  return mapped;
+}
+
+const mapAccountToAccountView = (account: Account): AccountView => {
+  return {
+    id: account.id,
+    summary: account.summary,
+    budgets: account.budgets,
+    transactions: account.transactions,
+  }
 }

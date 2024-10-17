@@ -11,7 +11,7 @@ describe('Login handlers', () => {
       username: 'john.doe',
       firstName: 'John',
       lastName: 'Doe',
-      email: 'johndoe@banana.fr'
+      email: 'john.doe@banana.fr'
     });
   });
 });

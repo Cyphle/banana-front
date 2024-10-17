@@ -5,17 +5,18 @@ describe('Account handlers', () => {
   it('should get all account from database', () => {
     const accounts = getAccountsHandler(mockDatabase);
 
-    expect(accounts).toContainEqual({ id: 1, name: 'Commun CIC' });
+    expect(accounts).toHaveLength(4);
   });
 
   it('should get one account from database for given id', () => {
-    const accounts = getAccountByIdHandler(mockDatabase)(1);
+    const account = getAccountByIdHandler(mockDatabase)(1);
 
-    expect(accounts).toEqual({ id: 1, name: 'Commun CIC' });
+    expect(account.id).toEqual(1);
   });
 
   it('should create an account', () => {
     const account = createAccountHandler(mockDatabase)({ 
+      username: 'john.doe',
       name: 'Another account',
       type: 'PERSONAL',
       startingBalance: 1000,
@@ -23,6 +24,6 @@ describe('Account handlers', () => {
       projectedBalance: 1000
     });
 
-    expect(account).toEqual({ id: 2, name: 'Another account'});
+    expect(account.id).toEqual(5);
   });
 })

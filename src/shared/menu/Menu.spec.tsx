@@ -2,6 +2,8 @@ import { screen } from '@testing-library/react';
 import { renderWithRouter } from '../../../test-utils/render';
 import { Menu } from './Menu';
 
+jest.mock('../../assets/banana.png', () => 'mocked-banana-image');
+
 describe('Menu Component', () => {
   it('renders all menu items', () => {
     renderWithRouter(<Menu />);

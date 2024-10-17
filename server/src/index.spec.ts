@@ -21,8 +21,6 @@ describe('Fastify integration test example', () => {
       url: '/'
     })
 
-    console.log('status code: ', response.statusCode)
-    console.log('body: ', response.body)
     return Promise.resolve({ status: response.statusCode, body: response.body });
   }
 
