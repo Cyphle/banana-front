@@ -1,9 +1,10 @@
 import { mockDatabase } from '../../testing/mock-database';
+import { Profile } from '../profile/profile.types';
 import { createAccountHandler, getAccountByIdHandler, getAccountsHandler } from './account.handlers';
 
 describe('Account handlers', () => {
   it('should get all account from database', () => {
-    const accounts = getAccountsHandler(mockDatabase);
+    const accounts = getAccountsHandler(mockDatabase, { username: 'john.doe' } as Profile);
 
     expect(accounts).toHaveLength(4);
   });

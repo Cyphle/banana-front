@@ -4,14 +4,16 @@ import { Account, AccountView, CreateAccountRequest } from './account.types';
 import { Database } from '../../database/database';
 import { getNumberParam, getStringBodyElement } from '../../helpers/fastify.helpers';
 import { database } from '../../config/database.config';
+import { Profile } from '../profile/profile.types';
 
 // TODO ici il faudrait pouvoir lire les sessions et récupérer le profile connecté. Donc il faut un système de session
-export const listAccountsController = (handler: (database: Database) => AccountView[]) => (fastify: FastifyInstance): void => {
+export const listAccountsController = (handler: (database: Database) => (profile: Profile) => AccountView[]) => (fastify: FastifyInstance): void => {
   fastify.get('/', (request: CustomFastifyRequest, reply: FastifyReply) => {
-    const accounts = handler(request.database!);
-
-    // @ts-ignore
-    console.log('test session user', request.session.get('user'));
+    const connectedProfile = request.session.get('user');
+    
+    fastify.log.info(`Getting accounts for connected user ${connectedProfile.username}`);
+    
+    const accounts = handler(request.database!)(connectedProfile);
 
     reply
       .code(200)
@@ -20,10 +22,14 @@ export const listAccountsController = (handler: (database: Database) => AccountV
   })
 }
 
-export const getAccountByIdController = (handler: (database: Database) => (id: number) => AccountView) => (fastify: FastifyInstance): void => {
+export const getAccountByIdController = (handler: (database: Database) => (id: number, profile: Profile) => AccountView) => (fastify: FastifyInstance): void => {
   fastify.get('/:id', (request: CustomFastifyRequest, reply: FastifyReply) => {
+    const connectedProfile = request.session.get('user');
     const accountId = getNumberParam(request, 'id');
-    const account = handler(database)(accountId);
+
+    fastify.log.info(`Getting account ${accountId} for connected user ${connectedProfile.username}`);
+
+    const account = handler(database)(accountId, connectedProfile);
 
     reply
       .code(200)

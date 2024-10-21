@@ -1,13 +1,22 @@
+import fastify from 'fastify';
 import { Database } from '../../database/database';
+import { Profile } from '../profile/profile.types';
 import { Account, AccountView, CreateAccountRequest } from './account.types';
 
-export const getAccountsHandler = (database: Database): AccountView[] => {
-  return database.read<Account>('accounts').map((account: Account) => mapAccountToAccountView(account));
+export const getAccountsHandler = (database: Database) => (profile: Profile): AccountView[] => {
+  return database.read<Account>('accounts')
+    .filter((account: Account) => account.username === profile.username)
+    .map((account: Account) => mapAccountToAccountView(account));
 }
 
-export const getAccountByIdHandler = (database: Database) => (id: number): AccountView => {
+export const getAccountByIdHandler = (database: Database) => (id: number, profile: Profile): AccountView | undefined => {
   const account = database.readOneById<Account>('accounts', id);
-  return mapAccountToAccountView(account);
+
+  if (account.username !== profile.username) {
+    return undefined;
+  } else {
+    return mapAccountToAccountView(account);
+  }
 }
 
 export const createAccountHandler = (database: Database) => (request: CreateAccountRequest): AccountView => {
