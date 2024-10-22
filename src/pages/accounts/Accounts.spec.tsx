@@ -11,6 +11,7 @@ jest.mock('../../stores/account/account.queries.ts', () => ({
 }));
 
 describe('Accounts Page', () => {
+  
   it('should render data', () => {
     (useFetchAccountSummaries as jest.Mock).mockImplementation(() => ({
       data: [

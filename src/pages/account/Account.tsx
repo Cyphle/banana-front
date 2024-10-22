@@ -60,7 +60,7 @@ export const AccountPage = () => {
   return (
     <div>
       <h1>{ account.summary.name }</h1>
-      <h2>{ account.summary.period.from } to { account.summary.period.to } </h2>
+      <h2>{ account?.summary?.period?.from } to { account?.summary?.period?.to } </h2>
 
       <section className="actions">
         <button onClick={ filterTransactions('ALL') }>Toutes les opérations</button>

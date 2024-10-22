@@ -27,6 +27,7 @@ describe('account queries', () => {
 
   test('should fetch one account', async () => {
     jest.mocked(getAccount).mockResolvedValue({
+      id: 1,
       summary: {
         id: 1,
         name: 'My Account',

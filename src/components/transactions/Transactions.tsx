@@ -1,4 +1,4 @@
-import { AccountTransaction, TransactionType } from '../../stores/account/account.types.ts';
+import { TransactionType } from '../../stores/account/account.types.ts';
 
 // TODO il faudrait un composant pour les transactions et un pour les transactions recurrentes
 // TODO to be tested
@@ -19,7 +19,7 @@ export const Transactions = (props: TransactionsProps) => {
   return (
     <section className="transactions">
       <ul>
-        { (props.transactions).map((transaction: AccountTransaction) => (
+        { (props.transactions).map((transaction: DisplayableTransaction) => (
           <li key={ `${transaction.type}-${transaction.id}` }>
             <span>{ transaction.executedAt }</span>
             <span>{ transaction.appliedAt }</span>

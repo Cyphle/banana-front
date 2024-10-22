@@ -12,40 +12,43 @@ export interface RouteDefinition {
   id?: number;
   index?: boolean;
   path?: string;
-  element: React.ReactNode;
-  loader?: ({ params }: { params: { [key: string]: string } }) => Promise<any>;
   name?: string;
 }
 
-export const ROUTES_PATHS: RouteDefinition[] = [
-  { index: true, element: <Home/> },
+export interface RouteDefinitionWithComponent extends RouteDefinition {
+  element: React.ReactNode;
+  loader?: ({ params }: { params: { [key: string]: string } }) => Promise<any>;
+}
+
+export const ROUTES_PATHS: RouteDefinitionWithComponent[] = [
+  { index: true, element: <Home /> },
   {
     id: 1,
     path: 'accounts',
-    element: <AccountsPage/>,
+    element: <AccountsPage />,
     name: 'Mes comptes'
   },
   {
     path: 'accounts/:id',
-    element: <AccountPage/>,
+    element: <AccountPage />,
     loader: accountParamsLoader,
   },
   {
     id: 2,
     path: 'profile',
-    element: <Profile/>,
+    element: <Profile />,
     name: 'Profil'
   },
   {
     id: 3,
     path: 'registration',
-    element: <Registration/>,
+    element: <Registration />,
     name: 'S\'inscrire'
   },
   {
     id: 4,
     path: 'login',
-    element: <Login/>,
+    element: <Login />,
     name: 'Se connecter'
   }
 ];
@@ -54,16 +57,24 @@ const ROUTES = [
   {
     path: '/',
     element: <Main />,
-    errorElement: <ErrorPage/>,
+    errorElement: <ErrorPage />,
     loader: appLoader,
     children: [
       {
-        errorElement: <ErrorPage/>,
+        errorElement: <ErrorPage />,
         children: ROUTES_PATHS
       }
     ]
   },
-]
+];
+
+export const ROUTES_WITHOUT_COMPONENT: RouteDefinition[] = ROUTES_PATHS
+  .map((route: RouteDefinitionWithComponent) => ({
+    id: route.id,
+    index: route.index,
+    path: route.path,
+    name: route.name,
+  }));
 
 // @ts-ignore
 export const Router = createBrowserRouter(ROUTES);

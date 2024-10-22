@@ -1,9 +1,9 @@
-import { NavLink } from 'react-router-dom';
-import { RouteDefinition, ROUTES_PATHS } from '../../Routes';
 import './Menu.scss';
+import { NavLink } from 'react-router-dom';
+import { RouteDefinition } from '../../Routes.tsx';
 
-export const Menu = () => {
-  const navItems = ROUTES_PATHS
+export const Menu = ({ routes }: { routes: RouteDefinition[] }) => {
+  const navItems = routes
   .filter((route: RouteDefinition) => !!route.id)
   .map((route: RouteDefinition) => ({
     id: route.id,

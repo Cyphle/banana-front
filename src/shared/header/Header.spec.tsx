@@ -22,6 +22,10 @@ jest.mock('../menu/Menu', () => ({
 
 jest.mock('../../assets/banana.png', () => 'mocked-banana-image');
 
+jest.mock('../../Routes.tsx', () => ({
+  ROUTES_WITHOUT_COMPONENT: [],
+}));
+
 describe('Header Component', () => {
   beforeEach(() => {
     (useUser as jest.Mock).mockReturnValue({
