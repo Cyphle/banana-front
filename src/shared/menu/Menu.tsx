@@ -1,8 +1,7 @@
 import { NavLink } from 'react-router-dom';
-import './Menu.scss';
 import { RouteDefinition, ROUTES_PATHS } from '../../Routes';
+import './Menu.scss';
 
-// TODO to be tested
 export const Menu = () => {
   const navItems = ROUTES_PATHS
   .filter((route: RouteDefinition) => !!route.id)

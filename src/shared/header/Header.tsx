@@ -4,7 +4,6 @@ import { NavLink } from 'react-router-dom';
 import bananaLogo from '../../assets/banana.png';
 import { useUser } from '../../contexts/user/UserContext.tsx';
 
-// TODO to be tested
 export const Header = () => {
   const { userState } = useUser();
 
