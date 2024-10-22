@@ -19,6 +19,8 @@ export const mockFastify = (opts = {}, controllers: ((fastify: FastifyInstance) 
 
   app.addHook('preHandler', (req: CustomFastifyRequest, reply: FastifyReply, done: HookHandlerDoneFunction) => {
     req.database = database
+    // @ts-ignore
+    req.session.set('user', { username: 'john.doe' });
     done()
   });
 

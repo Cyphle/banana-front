@@ -6,7 +6,7 @@ export const getAccountSummaries = (): Promise<AccountSummary[]> => {
 }
 
 export const responseToAccountSummaries = (data: any): AccountSummary[] => {
-  return data.map((account: any) => toAccountSummary(account));
+  return data.map((account: any) => toAccountSummary(account.id, account));
 }
 
 export const getAccount = (id: number): Promise<Account> => {
@@ -15,7 +15,8 @@ export const getAccount = (id: number): Promise<Account> => {
 
 export const responseToAccount = (data: any): Account => {
   return {
-    summary: toAccountSummary(data),
+    id: data.id,
+    summary: toAccountSummary(data.id, data),
     budgets: data.budgets.map((budget: any) => toBudget(budget)),
     transactions: data.transactions.map((transaction: any) => toTransaction(transaction)),
     parameters: data.parameters
@@ -48,9 +49,9 @@ const toTransaction = (transaction: any): AccountTransaction => {
   }
 }
 
-const toAccountSummary = (account: any): AccountSummary => {
+const toAccountSummary = (id: number, account: any): AccountSummary => {
   return {
-    id: account.summary.id,
+    id: id,
     name: account.summary.name,
     type: account.summary.type,
     period: account.summary.period ? {

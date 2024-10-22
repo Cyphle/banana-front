@@ -1,4 +1,5 @@
 export interface AccountSummary {
+  id: number;
   name: string;
   type: string;
   period?: {

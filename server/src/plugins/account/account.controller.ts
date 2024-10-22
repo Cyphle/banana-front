@@ -6,7 +6,6 @@ import { getNumberParam, getStringBodyElement } from '../../helpers/fastify.help
 import { database } from '../../config/database.config';
 import { Profile } from '../profile/profile.types';
 
-// TODO ici il faudrait pouvoir lire les sessions et récupérer le profile connecté. Donc il faut un système de session
 export const listAccountsController = (handler: (database: Database) => (profile: Profile) => AccountView[]) => (fastify: FastifyInstance): void => {
   fastify.get('/', (request: CustomFastifyRequest, reply: FastifyReply) => {
     const connectedProfile = request.session.get('user');
@@ -22,7 +21,7 @@ export const listAccountsController = (handler: (database: Database) => (profile
   })
 }
 
-export const getAccountByIdController = (handler: (database: Database) => (id: number, profile: Profile) => AccountView) => (fastify: FastifyInstance): void => {
+export const getAccountByIdController = (handler: (database: Database) => (id: number, profile: Profile) => AccountView | undefined) => (fastify: FastifyInstance): void => {
   fastify.get('/:id', (request: CustomFastifyRequest, reply: FastifyReply) => {
     const connectedProfile = request.session.get('user');
     const accountId = getNumberParam(request, 'id');

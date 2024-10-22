@@ -9,7 +9,7 @@ describe('Account controller', () => {
       .get('/')
       .end((err, res) => {
         expect(res?.statusCode).toEqual(200);
-        expect(JSON.parse(res?.body ?? '{}')).toHaveLength(4);
+        expect(JSON.parse(res?.body ?? '{}')).toHaveLength(3);
         done();
       });
   });

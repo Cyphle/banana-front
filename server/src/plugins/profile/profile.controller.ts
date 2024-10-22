@@ -7,8 +7,8 @@ import { getStringBodyElement, getStringQuery } from '../../helpers/fastify.help
 
 export const getProfileByUsernameController = (handler: (database: Database) => (username: string) => Profile) => (fastify: FastifyInstance): void => {
   fastify.get('/', (request: CustomFastifyRequest, reply: FastifyReply) => {
-    const username = getStringQuery(request, 'username');
-    const profile = handler(database)(username);
+    const connectedProfile = request.session.get('user');
+    const profile = handler(database)(connectedProfile.username);
     reply
       .code(200)
       .header('Content-Type', 'application/json; charset=utf-8')
