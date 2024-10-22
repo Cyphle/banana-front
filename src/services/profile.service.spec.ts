@@ -4,6 +4,7 @@ import { createProfile, responseToProfile } from './profile.service';
 
 jest.mock('../helpers/http', () => ({
   get: jest.fn(),
+  post: jest.fn(),
 }));
 
 describe('Profile service', () => {

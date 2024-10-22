@@ -30,11 +30,13 @@ describe('Login service', () => {
   describe('responseToUser', () => {
     it('should map response to user object', () => {
       const mockResponse = {
-        id: 1,
-        username: 'john.doe',
-        firstName: 'John',
-        lastName: 'Doe',
-        email: 'john@example.com',
+        profile: {
+          id: 1,
+          username: 'john.doe',
+          firstName: 'John',
+          lastName: 'Doe',
+          email: 'john@example.com',
+        }
       };
 
       const result = responseToLogin(mockResponse);
