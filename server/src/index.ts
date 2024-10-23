@@ -4,13 +4,15 @@ import { initFastify } from './config/fastify.config';
 import { decorateWithDatabase } from './database/database.decorator';
 import { profilePlugin } from './plugins/profile/profile.plugin';
 import { loginPlugin } from './plugins/login/login.plugin';
+import { userPlugin } from './plugins/user/user.plugin';
 
 const fastify = initFastify(
   [decorateWithUser, decorateWithDatabase],
   [
     { plugin: profilePlugin, routesPrefix: '/profiles' },
     { plugin: accountPlugin, routesPrefix: '/accounts' },
-    { plugin: loginPlugin, routesPrefix: '/login' }
+    { plugin: loginPlugin, routesPrefix: '/login' },
+    { plugin: userPlugin, routesPrefix: '/user' },
   ]
 );
 

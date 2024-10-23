@@ -1,10 +1,9 @@
 import { FastifyInstance, FastifyReply } from 'fastify';
-import { CustomFastifyRequest } from '../../fastify.types';
-import { Account, AccountView, CreateAccountRequest } from './account.types';
 import { Database } from '../../database/database';
+import { CustomFastifyRequest } from '../../fastify.types';
 import { getNumberParam, getStringBodyElement } from '../../helpers/fastify.helpers';
-import { database } from '../../config/database.config';
 import { Profile } from '../profile/profile.types';
+import { AccountView, CreateAccountRequest } from './account.types';
 
 export const listAccountsController = (handler: (database: Database) => (profile: Profile) => AccountView[]) => (fastify: FastifyInstance): void => {
   fastify.get('/', (request: CustomFastifyRequest, reply: FastifyReply) => {
@@ -28,7 +27,7 @@ export const getAccountByIdController = (handler: (database: Database) => (id: n
 
     fastify.log.info(`Getting account ${accountId} for connected user ${connectedProfile.username}`);
 
-    const account = handler(database)(accountId, connectedProfile);
+    const account = handler(request.database!!)(accountId, connectedProfile);
 
     reply
       .code(200)
@@ -48,7 +47,7 @@ export const createAccountController = (handler: (database: Database) => (comman
       projectedBalance: getStringBodyElement<number>(request, 'projectedBalance'),
     }
     
-    const account = handler(database)(command);
+    const account = handler(request.database!!)(command);
 
     reply.code(200).send(account);
   });

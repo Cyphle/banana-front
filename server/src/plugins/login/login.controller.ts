@@ -1,9 +1,8 @@
-import { Database } from '../../database/database';
-import { Profile } from '../profile/profile.types';
 import { FastifyInstance, FastifyReply } from 'fastify';
+import { Database } from '../../database/database';
 import { CustomFastifyRequest } from '../../fastify.types';
 import { getStringBodyElement } from '../../helpers/fastify.helpers';
-import { database } from '../../config/database.config';
+import { Profile } from '../profile/profile.types';
 import { LoginRequest } from './login.types';
 
 export const loginController = (handler: (database: Database) => (request: CustomFastifyRequest, command: LoginRequest) => Profile) => (fastify: FastifyInstance): void => {
@@ -13,7 +12,7 @@ export const loginController = (handler: (database: Database) => (request: Custo
       password: getStringBodyElement<string>(request, 'password')
     }
     
-    const profile = handler(database)(request, loginRequest);
+    const profile = handler(request.database!!)(request, loginRequest);
 
     reply
       .code(201)
