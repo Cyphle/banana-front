@@ -1,12 +1,14 @@
 import { NavLink } from 'react-router-dom';
 import bananaLogo from '../../assets/banana.png';
-import { useUser } from '../../contexts/user/UserContext.tsx';
+import { setUserContextOnSession, useUser } from '../../contexts/user/user.context.tsx';
 import { ROUTES_WITHOUT_COMPONENT } from '../../Routes.tsx';
 import { Menu } from '../menu/Menu';
 import './Header.scss';
 
 export const Header = () => {
   const { userState } = useUser();
+
+  setUserContextOnSession();
 
   return (
     <header>

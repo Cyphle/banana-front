@@ -1,3 +1,5 @@
+import { JsonError } from './error';
+
 export const BASE_PATH = 'api';
 
 // TODO to be tested
@@ -18,7 +20,11 @@ export const getMany = <T>(path: string, mapper: (data: any) => T[]): Promise<T[
 export const getOne = <T>(path: string, mapper: (data: any) => T): Promise<T> => {
   return fetch(`${BASE_PATH}/${path}`, {
   })
-    .then(response => {
+    .then((response: Response) => {
+      if (response.status === 403) {
+        throw new JsonError({ code: 403, message: 'Forbidden' });
+      }
+
       return response.json();
     })
     .then(data => {

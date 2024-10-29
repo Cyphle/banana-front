@@ -1,8 +1,13 @@
 import './Menu.scss';
 import { NavLink } from 'react-router-dom';
 import { RouteDefinition } from '../../Routes.tsx';
+import { useUser } from '../../contexts/user/user.context.tsx';
 
 export const Menu = ({ routes }: { routes: RouteDefinition[] }) => {
+  const user = useUser();
+
+  console.log('menu', user);
+
   const navItems = routes
   .filter((route: RouteDefinition) => !!route.id)
   .map((route: RouteDefinition) => ({

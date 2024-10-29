@@ -4,7 +4,7 @@ import { ConfigProvider } from 'antd';
 import './main.scss'
 import { PRIMARY_COLOR } from './theme-variables.ts';
 import { Footer } from './shared/footer/Footer.tsx';
-import { UserContextProvider } from './contexts/user/UserContext.tsx';
+import { UserContextProvider } from './contexts/user/user.context.tsx';
 
 export async function appLoader() {
   return {};

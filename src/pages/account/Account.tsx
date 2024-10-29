@@ -38,7 +38,7 @@ export const AccountPage = () => {
     }
   }, [isPending, data,]);
 
-  // // TODO il faut faire un high order component avec template pour faire du UI skeleton avec is loading et is error
+  // TODO il faut faire un high order component avec template => cf accounts.tsx
   if (isPending) {
     return <span>Loading...</span>
   }

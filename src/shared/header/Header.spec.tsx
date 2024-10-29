@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import { screen } from '../../../test-utils';
 import { renderWithRouter } from '../../../test-utils/render';
-import { useUser } from '../../contexts/user/UserContext';
+import { useUser } from '../../contexts/user/user.context';
 import { Header } from './Header';
 
 jest.mock('react-router-dom', () => {

@@ -1,7 +1,7 @@
 import { formOptions, useForm } from '@tanstack/react-form';
 import { Button, Form, Input } from 'antd';
 import { useNavigate } from 'react-router';
-import { useUser } from '../../contexts/user/UserContext.tsx';
+import { useUser } from '../../contexts/user/user.context.tsx';
 import { AuthenticatedUser } from '../../contexts/user/user.types.ts';
 import { useLogin } from '../../stores/login/login.commands.ts';
 import { LoginRequest } from '../../stores/login/login.types.ts';

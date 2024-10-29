@@ -9,7 +9,6 @@ export const useFetchAccountSummaries = (): UseQueryResult<AccountSummary[], Err
   });
 }
 
-// TODO to be tested
 export const useFetchAccount = (id: number): UseQueryResult => {
   return useQuery({
     queryKey: ['account', id],

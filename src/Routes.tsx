@@ -13,6 +13,7 @@ export interface RouteDefinition {
   index?: boolean;
   path?: string;
   name?: string;
+  isAuth: boolean;
 }
 
 export interface RouteDefinitionWithComponent extends RouteDefinition {
@@ -21,35 +22,44 @@ export interface RouteDefinitionWithComponent extends RouteDefinition {
 }
 
 export const ROUTES_PATHS: RouteDefinitionWithComponent[] = [
-  { index: true, element: <Home /> },
+  { 
+    index: true, 
+    element: <Home />,
+    isAuth: false
+  },
   {
     id: 1,
     path: 'accounts',
     element: <AccountsPage />,
-    name: 'Mes comptes'
+    name: 'Mes comptes',
+    isAuth: true
   },
   {
     path: 'accounts/:id',
     element: <AccountPage />,
     loader: accountParamsLoader,
+    isAuth: true
   },
   {
     id: 2,
     path: 'profile',
     element: <Profile />,
-    name: 'Profil'
+    name: 'Profil',
+    isAuth: true
   },
   {
     id: 3,
     path: 'registration',
     element: <Registration />,
-    name: 'S\'inscrire'
+    name: 'S\'inscrire',
+    isAuth: false
   },
   {
     id: 4,
     path: 'login',
     element: <Login />,
-    name: 'Se connecter'
+    name: 'Se connecter',
+    isAuth: false
   }
 ];
 
