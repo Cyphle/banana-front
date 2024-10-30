@@ -13,6 +13,7 @@ export const some = <T>(value: T): Option<T> => ({ _tag: 'Some', value });
 
 export const none: Option<never> = { _tag: 'None' };
 
+// TODO faut que ça soit un objet et pas des fonctions. c'est plus simple
 export const isSome = <T>(option: Option<T>): option is Some<T> => option._tag === 'Some';
 
 export const isNone = <T>(option: Option<T>): option is None => option._tag === 'None';

@@ -27,13 +27,3 @@ export const UserContextProvider = ({ children }: PropsWithChildren) => {
 };
 
 export const useUser = () => useContext(UserContext);
-
-export const setUserContextOnSession = () => {
-  const { setUserState } = useUser();
-  const { data } = useUserInfo();
-
-  const userInfo = data as Option<UserInfo>;
-  apply<UserInfo>(userInfo, (userInfo: UserInfo) => {
-    setUserState(userInfo);
-  });
-}

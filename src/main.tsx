@@ -5,23 +5,40 @@ import './main.scss'
 import { PRIMARY_COLOR } from './theme-variables.ts';
 import { Footer } from './shared/footer/Footer.tsx';
 import { UserContextProvider } from './contexts/user/user.context.tsx';
+import { useUserInfo } from './stores/user/user.queries.ts';
+import { UserInfo } from './stores/user/user.types.ts';
+import { Option } from './helpers/option.ts';
 
 export async function appLoader() {
   return {};
 }
 
-function Main() {
+const SiteContent = ({ userInfo }: { userInfo: Option<UserInfo> }) => {
   return (
-    <>
-      <UserContextProvider>
-        <ConfigProvider theme={ { token: { colorPrimary: PRIMARY_COLOR } } }>
-          <Header/>
+    <UserContextProvider>
+      <ConfigProvider theme={ { token: { colorPrimary: PRIMARY_COLOR } } }>
+          <Header userInfo={userInfo}/>
 
           <Outlet/>
 
           <Footer/>
         </ConfigProvider>
-      </UserContextProvider>
+    </UserContextProvider>
+  )
+}
+
+function Main() {
+  const { isPending, isError, data, error } = useUserInfo();
+
+  return (
+    <>
+      {isPending ? (
+        <span>Loading...</span>
+      ) : isError ? (
+        <span>Error: { error.message }</span>
+      ) : (
+        <SiteContent userInfo={data as Option<UserInfo>}/>
+      )}
     </>
   )
 }

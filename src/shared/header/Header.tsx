@@ -1,14 +1,21 @@
+import { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import bananaLogo from '../../assets/banana.png';
-import { setUserContextOnSession, useUser } from '../../contexts/user/user.context.tsx';
+import { useUser } from '../../contexts/user/user.context.tsx';
+import { apply, Option } from '../../helpers/option.ts';
 import { ROUTES_WITHOUT_COMPONENT } from '../../Routes.tsx';
+import { UserInfo } from '../../stores/user/user.types.ts';
 import { Menu } from '../menu/Menu';
 import './Header.scss';
 
-export const Header = () => {
-  const { userState } = useUser();
-
-  setUserContextOnSession();
+export const Header = ({ userInfo }: { userInfo: Option<UserInfo> }) => {
+  const { userState, setUserState } = useUser();
+  
+  useEffect(() => {
+    apply<UserInfo>(userInfo, (userInfo: UserInfo) => {
+      setUserState(userInfo);
+    });
+  }, [setUserState]);
 
   return (
     <header>
