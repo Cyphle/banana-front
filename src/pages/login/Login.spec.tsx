@@ -13,7 +13,7 @@ jest.mock('react-router', () => ({
   useNavigate: jest.fn(),
 }));
 
-jest.mock('../../contexts/user/UserContext.tsx', () => ({
+jest.mock('../../contexts/user/user.context.tsx', () => ({
   useUser: jest.fn().mockImplementation(() => ({
     setUserState: jest.fn(),
   })),

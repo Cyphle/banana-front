@@ -1,37 +1,57 @@
-export type Option<T> = Some<T> | None;
+export interface Option<T> {
+	_tag: 'Some' | 'None';
+	value?: T;
 
-export interface Some<T> {
-	readonly _tag: 'Some';
-	readonly value: T;
+	map<U>(f: (value: T) => U): Option<U>;
+	getOrElse(defaultValue: T): T;
+	apply(f: (value: T) => void): void;
+	isSome(): boolean;
 }
 
-export interface None {
-	readonly _tag: 'None';
-}
+export class Some<T> implements Option<T> {
+	_tag: 'Some' = 'Some';
+	value: T;
 
-export const some = <T>(value: T): Option<T> => ({ _tag: 'Some', value });
+	constructor(value: T) {
+		this.value = value;
+	}
 
-export const none: Option<never> = { _tag: 'None' };
+	map<U>(f: (value: T) => U): Option<U> {
+		return new Some(f(this.value));
+	}
 
-// TODO faut que ça soit un objet et pas des fonctions. c'est plus simple
-export const isSome = <T>(option: Option<T>): option is Some<T> => option._tag === 'Some';
+	getOrElse(_: T): T {
+		return this.value;
+	}
 
-export const isNone = <T>(option: Option<T>): option is None => option._tag === 'None';
+	apply(f: (value: T) => void): void {
+		f(this.value);
+	}
 
-export const map = <T, U>(option: Option<T>, f: (value: T) => U): Option<U> =>
-	isSome(option) ? some(f(option.value)) : none;
-
-export const flatMap = <T, U>(option: Option<T>, f: (value: T) => Option<U>): Option<U> =>
-	isSome(option) ? f(option.value) : none;
-
-export const apply = <T>(option: Option<T>, f: (value: T) => void): void => {
-	if (isSome(option)) {
-		f(option.value);
+	isSome(): boolean {
+		return true;
 	}
 }
 
-export const getOrElse = <T>(option: Option<T>, defaultValue: T): T =>
-	isSome(option) ? option.value : defaultValue;
+export class None implements Option<never> {
+	_tag: 'None' = 'None';
 
-export const fold = <T, U>(option: Option<T>, onNone: () => U, onSome: (value: T) => U): U =>
-	isSome(option) ? onSome(option.value) : onNone();
+	map<U>(_: (value: never) => U): Option<U> {
+		return new None();
+	}
+
+	getOrElse<T>(defaultValue: T): T {
+		return defaultValue;
+	}
+
+	apply(_: (value: never) => void): void {
+		// Do nothing
+	}
+
+	isSome(): boolean {
+		return false;
+	}
+}
+
+export const some = <T>(value: T): Option<T> => new Some(value);
+export const none: Option<never> = new None();

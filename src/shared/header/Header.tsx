@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import bananaLogo from '../../assets/banana.png';
 import { useUser } from '../../contexts/user/user.context.tsx';
-import { apply, Option } from '../../helpers/option.ts';
+import { Option } from '../../helpers/option.ts';
 import { ROUTES_WITHOUT_COMPONENT } from '../../Routes.tsx';
 import { UserInfo } from '../../stores/user/user.types.ts';
 import { Menu } from '../menu/Menu';
@@ -12,7 +12,7 @@ export const Header = ({ userInfo }: { userInfo: Option<UserInfo> }) => {
   const { userState, setUserState } = useUser();
   
   useEffect(() => {
-    apply<UserInfo>(userInfo, (userInfo: UserInfo) => {
+    userInfo.apply((userInfo: UserInfo) => {
       setUserState(userInfo);
     });
   }, [setUserState]);

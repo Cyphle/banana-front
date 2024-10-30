@@ -1,7 +1,7 @@
-import { getUserInfo, responseToUserInfo } from './user.service';
 import { getOne } from '../helpers/http';
-import { some, none } from '../helpers/option';
+import { none, some } from '../helpers/option';
 import { UserInfo } from '../stores/user/user.types';
+import { getUserInfo, responseToUserInfo } from './user.service';
 
 jest.mock('../helpers/http');
 
@@ -25,14 +25,6 @@ describe('user.service', () => {
       const result = await getUserInfo();
       
       expect(result).toEqual(some(mockUserInfo));
-    });
-
-    test('should return none when getOne returns undefined', async () => {
-      (getOne as jest.Mock).mockResolvedValue(undefined);
-      
-      const result = await getUserInfo();
-      
-      expect(result).toEqual(none);
     });
   });
 

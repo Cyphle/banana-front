@@ -1,8 +1,5 @@
 import { createContext, Dispatch, PropsWithChildren, SetStateAction, useContext, useState } from 'react';
 import { AuthenticatedUser } from './user.types.ts';
-import { useUserInfo } from '../../stores/user/user.queries.ts';
-import { UserInfo } from '../../stores/user/user.types.ts';
-import { apply, Option } from '../../helpers/option.ts';
 
 export interface UserContextType {
   userState: AuthenticatedUser;

@@ -6,11 +6,11 @@ import { RouteDefinition } from "../../Routes";
 jest.mock('../../assets/banana.png', () => 'mocked-banana-image');
 
 describe('Menu Component', () => {
-  const menuItems = [
-    { id: 1, path: '/accounts', name: 'Mes comptes' },
-    { id: 2, path: '/profile', name: 'Profil' },
-    { id: 3, path: '/subscribe', name: 'S\'inscrire' },
-    { id: 4, path: '/login', name: 'Se connecter' }
+  const menuItems: RouteDefinition[] = [
+    { id: 1, path: '/accounts', name: 'Mes comptes', isAuth: true },
+    { id: 2, path: '/profile', name: 'Profil', isAuth: true },
+    { id: 3, path: '/subscribe', name: 'S\'inscrire', isAuth: false },
+    { id: 4, path: '/login', name: 'Se connecter', isAuth: false }
   ];
 
   test('renders all menu items', () => {

@@ -9,17 +9,17 @@ export const userInfoController = (handler: (database: Database) => (username: s
 
     if (connectedProfile === undefined) {
       reply.code(403);
-    }
-
-    const info = handler(request.database!!)(connectedProfile.username);
-
-    if (!!info) {
-      reply
-      .code(200)
-      .header('Content-Type', 'application/json; charset=utf-8')
-      .send({ ...info });
     } else {
-      reply.code(403);
+      const info = handler(request.database!!)(connectedProfile.username);
+
+      if (!!info) {
+        reply
+        .code(200)
+        .header('Content-Type', 'application/json; charset=utf-8')
+        .send({ ...info });
+      } else {
+        reply.code(403);
+      }
     }
   });
 }
