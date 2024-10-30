@@ -84,6 +84,7 @@ export const ROUTES_WITHOUT_COMPONENT: RouteDefinition[] = ROUTES_PATHS
     index: route.index,
     path: route.path,
     name: route.name,
+    isAuth: route.isAuth
   }));
 
 // @ts-ignore

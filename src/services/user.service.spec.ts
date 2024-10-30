@@ -1,7 +1,7 @@
 import { getOne } from '../helpers/http';
 import { none, some } from '../helpers/option';
 import { UserInfo } from '../stores/user/user.types';
-import { getUserInfo, responseToUserInfo } from './user.service';
+import { getUserInfo, logout, responseToUserInfo } from './user.service';
 
 jest.mock('../helpers/http');
 
@@ -43,6 +43,24 @@ describe('user.service', () => {
       };
       const result = responseToUserInfo(mockData);
       expect(result).toEqual(some(mockData));
+    });
+  });
+
+  describe('logout', () => {
+    test('should call getOne with correct parameters', async () => {
+      (getOne as jest.Mock).mockResolvedValue({});
+      
+      await logout();
+
+      expect(getOne).toHaveBeenCalledWith('logout', expect.any(Function));
+    });
+
+    test('should return void on success', async () => {
+      (getOne as jest.Mock).mockResolvedValue({});
+      
+      const result = await logout();
+
+      expect(result).toBeUndefined();
     });
   });
 });

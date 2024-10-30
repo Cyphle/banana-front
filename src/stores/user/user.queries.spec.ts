@@ -1,11 +1,12 @@
 import { waitFor } from '@testing-library/react';
 import { renderQueryHook } from '../../../test-utils/render';
+import { some } from '../../helpers/option';
 import { getUserInfo } from '../../services/user.service';
 import { useUserInfo } from './user.queries';
-import { some } from '../../helpers/option';
 
 jest.mock('../../services/user.service', () => ({
-  getUserInfo: jest.fn()
+  getUserInfo: jest.fn(),
+  logout: jest.fn()
 }));
 
 describe('user queries', () => {
