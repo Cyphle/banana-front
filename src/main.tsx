@@ -7,7 +7,7 @@ import { Footer } from './shared/footer/Footer.tsx';
 import { UserContextProvider } from './contexts/user/user.context.tsx';
 import { useUserInfo } from './stores/user/user.queries.ts';
 import { UserInfo } from './stores/user/user.types.ts';
-import { Option } from './helpers/option.ts';
+import { Option, some } from './helpers/option.ts';
 
 export async function appLoader() {
   return {};
@@ -28,17 +28,25 @@ const SiteContent = ({ userInfo }: { userInfo: Option<UserInfo> }) => {
 }
 
 function Main() {
-  const { isPending, isError, data, error } = useUserInfo();
+  // const { isPending, isError, data, error } = useUserInfo();
+  const data = some({
+    username: '',
+    firstName: '',
+    lastName: '',
+    email: ''
+  });
 
+  // TODO faut remettre comme avant
   return (
     <>
-      {isPending ? (
+      {/* {isPending ? (
         <span>Loading...</span>
       ) : isError ? (
         <span>Error: { error.message }</span>
       ) : (
         <SiteContent userInfo={data as Option<UserInfo>}/>
-      )}
+      )} */}
+      <SiteContent userInfo={data as Option<UserInfo>}/>
     </>
   )
 }
