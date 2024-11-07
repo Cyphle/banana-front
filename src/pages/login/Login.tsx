@@ -1,11 +1,13 @@
 import { formOptions, useForm } from '@tanstack/react-form';
 import { Button, Form, Input } from 'antd';
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import { AuthenticatedUser } from '../../contexts/user/user.types.ts';
 import { useLogin } from '../../stores/login/login.commands.ts';
 import { LoginRequest } from '../../stores/login/login.types.ts';
 import { useUser } from '../../contexts/user/user.context.tsx';
 import { useEffect, useState } from 'react';
+import { authenticate } from '../../services/user.service.ts';
+import { isNotNullNorUndefined } from '../../helpers/utils.ts';
 
 // TODO original
 // export const Login = () => {
@@ -83,34 +85,51 @@ import { useEffect, useState } from 'react';
 
 // TODO oidc example
 
+const readQuery = (): URLSearchParams => {
+  return new URLSearchParams(useLocation().search);
+}
+
+
 export const Login = () => {
-  const [userInfo, setUserInfo] = useState(null);
+  const queryParams = readQuery();
+  const navigate = useNavigate();
+
+  console.log('query', queryParams);
+  // TODO si code && session_state && iss ne sont pas null alors il faut faire un get sur http://localhost:8080/authenticate avec ces paramètres
 
   // Redirect to login on button click
   const handleLogin = () => {
-    window.location.href = "http://localhost:8080";
+    window.location.href = "http://localhost:8080/login";
   };
 
-  // Fetch user info from backend if already authenticated
   useEffect(() => {
-    fetch("http://localhost:8080/auth/callback", {
-      credentials: "include",
-    })
-      .then(response => response.json())
-      .then(data => setUserInfo(data))
-      .catch(error => console.error("Error fetching user info:", error));
-  }, []);
+    const code = queryParams.get('code');
+    const sessionState = queryParams.get('session_state');
+    const iss = queryParams.get('iss');
+    if (isNotNullNorUndefined(code) && isNotNullNorUndefined(sessionState) && isNotNullNorUndefined(iss)) {
+      authenticate(code, sessionState, iss)
+      .then(() => {
+        navigate('/');
+      });
+    }
+  }, [queryParams]);
+
+  // TODO ça faut une url /user/info
+  // Fetch user info from backend if already authenticated.
+  // TODO c'est peut être pas nécessaire ce truc ou alors faut plutôt regarder ce qu'on a dans le context user.
+  // useEffect(() => {
+  //   // fetch("http://localhost:8080/auth/callback", {
+  //   fetch("http://localhost:8080/authenticate", {
+  //     credentials: "include",
+  //   })
+  //     .then(response => response.json())
+  //     .then(data => setUserInfo(data))
+  //     .catch(error => console.error("Error fetching user info:", error));
+  // }, []);
 
   return (
     <div>
-      {userInfo ? (
-        <div>
-          <h2>Welcome, {userInfo.name}!</h2>
-          <p>Email: {userInfo.email}</p>
-        </div>
-      ) : (
-        <button onClick={handleLogin}>Login with Keycloak</button>
-      )}
+      <button onClick={handleLogin}>Login with Keycloak</button>
     </div>
   );
 }
