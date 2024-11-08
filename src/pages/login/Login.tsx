@@ -112,17 +112,6 @@ export const Login = () => {
     }
   }, [queryParams]);
 
-  // TODO clean
-  useEffect(() => {
-    getOne(`test`, (data: any) => data)
-    .then((data) => {
-      console.log('data', data);
-    })
-    .catch((err) => {
-      console.log('err', err);
-    });
-  }, []);
-
   return (
     <div>
       <Button onClick={handleLogin} type="primary" htmlType="submit">

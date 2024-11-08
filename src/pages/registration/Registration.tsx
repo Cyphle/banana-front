@@ -47,8 +47,9 @@ export const Registration = () => {
 
 // TODO clean
   useEffect(() => {
-    fetch(`${BASE_PATH}/get_session`, {})
+    fetch(`${BASE_PATH}/get`, {})
     .then((data) => {
+      console.log(data.body);
       console.log('data', data);
     })
     .catch((err) => {
