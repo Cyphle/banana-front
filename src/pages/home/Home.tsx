@@ -1,7 +1,21 @@
-import './Home.scss';
+import { useEffect } from 'react';
 import { GoToRegistrationButton } from '../../components/go-to-registration-button/GoToRegistrationButton.tsx';
+import { BASE_PATH } from '../../helpers/http.ts';
+import './Home.scss';
 
 export const Home = () => {
+
+  // TODO clean
+  // useEffect(() => {
+  //   fetch(`${BASE_PATH}/set_session`, {})
+  //   .then((data) => {
+  //     console.log('data', data);
+  //   })
+  //   .catch((err) => {
+  //     console.log('err', err);
+  //   });
+  // }, []);
+
   return (
     <div className="homepage">
       <div className="main-title">

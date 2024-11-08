@@ -4,6 +4,8 @@ import { CreateProfileRequest } from '../../stores/profile/profile.types.ts';
 import { Button, Form, Input } from 'antd';
 import { useCreateProfile } from '../../stores/profile/profile.commands.ts';
 import { useNavigate } from 'react-router';
+import { useEffect } from 'react';
+import { BASE_PATH, getOne } from '../../helpers/http.ts';
 
 export const Registration = () => {
   const navigate = useNavigate();
@@ -42,6 +44,17 @@ export const Registration = () => {
       });
     },
   });
+
+// TODO clean
+  useEffect(() => {
+    fetch(`${BASE_PATH}/get_session`, {})
+    .then((data) => {
+      console.log('data', data);
+    })
+    .catch((err) => {
+      console.log('err', err);
+    });
+  }, []);
 
   return (
     <div className="registration-page">
