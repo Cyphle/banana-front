@@ -6,15 +6,15 @@ import './Home.scss';
 export const Home = () => {
 
   // TODO clean
-  useEffect(() => {
-    fetch(`${BASE_PATH}/increment`, {})
-    .then((data) => {
-      console.log('data', data);
-    })
-    .catch((err) => {
-      console.log('err', err);
-    });
-  }, []);
+  // useEffect(() => {
+  //   fetch(`${BASE_PATH}/set`, {})
+  //   .then((data) => {
+  //     console.log('data', data);
+  //   })
+  //   .catch((err) => {
+  //     console.log('err', err);
+  //   });
+  // }, []);
 
   return (
     <div className="homepage">

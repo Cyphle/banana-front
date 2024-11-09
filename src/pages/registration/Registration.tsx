@@ -49,8 +49,17 @@ export const Registration = () => {
   useEffect(() => {
     fetch(`${BASE_PATH}/get`, {})
     .then((data) => {
-      console.log(data.body);
-      console.log('data', data);
+      console.log('data from shared state', data);
+    })
+    .catch((err) => {
+      console.log('err', err);
+    });
+  }, []);
+
+  useEffect(() => {
+    fetch(`${BASE_PATH}/get_session`, {})
+    .then((data) => {
+      console.log('data from session', data);
     })
     .catch((err) => {
       console.log('err', err);
