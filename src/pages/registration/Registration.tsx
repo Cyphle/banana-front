@@ -47,7 +47,7 @@ export const Registration = () => {
 
 // TODO clean
   useEffect(() => {
-    fetch(`${BASE_PATH}/get`, {})
+    fetch(`${BASE_PATH}/get-from-shared-state`, {})
     .then((data) => {
       console.log('data from shared state', data);
     })
@@ -57,7 +57,7 @@ export const Registration = () => {
   }, []);
 
   useEffect(() => {
-    fetch(`${BASE_PATH}/get_session`, {})
+    fetch(`${BASE_PATH}/get-from-session`, {})
     .then((data) => {
       console.log('data from session', data);
     })
