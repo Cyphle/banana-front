@@ -15,7 +15,7 @@ export const Header = ({ userInfo }: { userInfo: Option<UserInfo> }) => {
     userInfo.apply((userInfo: UserInfo) => {
       setUserState(userInfo);
     });
-  }, [setUserState]);
+  }, [userInfo]);
 
   return (
     <header>

@@ -1,6 +1,4 @@
-import { useEffect } from 'react';
 import { GoToRegistrationButton } from '../../components/go-to-registration-button/GoToRegistrationButton.tsx';
-import { BASE_PATH } from '../../helpers/http.ts';
 import './Home.scss';
 
 export const Home = () => {

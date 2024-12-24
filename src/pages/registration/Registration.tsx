@@ -5,7 +5,7 @@ import { Button, Form, Input } from 'antd';
 import { useCreateProfile } from '../../stores/profile/profile.commands.ts';
 import { useNavigate } from 'react-router';
 import { useEffect } from 'react';
-import { BASE_PATH, getOne } from '../../helpers/http.ts';
+import { BASE_PATH } from '../../helpers/http.ts';
 
 export const Registration = () => {
   const navigate = useNavigate();

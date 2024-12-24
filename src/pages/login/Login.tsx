@@ -1,14 +1,8 @@
-import { formOptions, useForm } from '@tanstack/react-form';
-import { Button, Form, Input } from 'antd';
+import { Button } from 'antd';
+import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router';
-import { AuthenticatedUser } from '../../contexts/user/user.types.ts';
-import { useLogin } from '../../stores/login/login.commands.ts';
-import { LoginRequest } from '../../stores/login/login.types.ts';
-import { useUser } from '../../contexts/user/user.context.tsx';
-import { useEffect, useState } from 'react';
-import { authenticate } from '../../services/user.service.ts';
 import { isNotNullNorUndefined } from '../../helpers/utils.ts';
-import { getOne } from '../../helpers/http.ts';
+import { authenticate } from '../../services/user.service.ts';
 
 // TODO original
 // export const Login = () => {
@@ -100,6 +94,10 @@ export const Login = () => {
 
   // TODO en fait il faut virer ce bout de code et remettre une redirect uri parce qu'en fait on ne devrait pas avoir de page de login
   // Ou alors une page qui ne fait rien à part l'effect là
+  /*
+  il faut utiliser les sessions pour éviter cet effect.
+  Le client n'est pas le front react mais le back rust. du coup la redirect uri doit correspondre au back rust
+   */
   useEffect(() => {
     const code = queryParams.get('code');
     const sessionState = queryParams.get('session_state');
