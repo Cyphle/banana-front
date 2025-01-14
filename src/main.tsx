@@ -1,13 +1,12 @@
-import { Outlet } from 'react-router-dom';
-import { Header } from './shared/header/Header.tsx';
 import { ConfigProvider } from 'antd';
-import './main.scss'
-import { PRIMARY_COLOR } from './theme-variables.ts';
-import { Footer } from './shared/footer/Footer.tsx';
+import { Outlet } from 'react-router-dom';
 import { UserContextProvider } from './contexts/user/user.context.tsx';
-import { useUserInfo } from './stores/user/user.queries.ts';
-import { UserInfo } from './stores/user/user.types.ts';
 import { Option, some } from './helpers/option.ts';
+import './main.scss';
+import { Footer } from './shared/footer/Footer.tsx';
+import { Header } from './shared/header/Header.tsx';
+import { UserInfo } from './stores/user/user.types.ts';
+import { PRIMARY_COLOR } from './theme-variables.ts';
 
 export async function appLoader() {
   return {};

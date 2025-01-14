@@ -97,6 +97,7 @@ export const Login = () => {
   /*
   il faut utiliser les sessions pour éviter cet effect.
   Le client n'est pas le front react mais le back rust. du coup la redirect uri doit correspondre au back rust
+  On peut pas faire ça en fait parce qu'à un moment on est complètement sur keycloak et le back rust n'intervient pas, notamment pour récupérer le code
    */
   useEffect(() => {
     const code = queryParams.get('code');
