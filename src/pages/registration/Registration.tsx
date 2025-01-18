@@ -6,6 +6,7 @@ import { useCreateProfile } from '../../stores/profile/profile.commands.ts';
 import { useNavigate } from 'react-router';
 import { useEffect } from 'react';
 import { BASE_PATH } from '../../helpers/http.ts';
+import {JsonError} from "../../helpers/error.ts";
 
 export const Registration = () => {
   const navigate = useNavigate();
@@ -47,16 +48,6 @@ export const Registration = () => {
 
 // TODO clean
   useEffect(() => {
-    fetch(`${BASE_PATH}/get-from-shared-state`, {})
-    .then((data) => {
-      console.log('data from shared state', data);
-    })
-    .catch((err) => {
-      console.log('err', err);
-    });
-  }, []);
-
-  useEffect(() => {
     fetch(`${BASE_PATH}/get-from-session`, {})
     .then((data) => {
       console.log('data from session', data);
@@ -65,6 +56,22 @@ export const Registration = () => {
       console.log('err', err);
     });
   }, []);
+
+
+// TODO clean
+    useEffect(() => {
+        fetch(`${BASE_PATH}/profiles`, {})
+            .then((response: Response) => {
+                if (response.status === 403) {
+                    throw new JsonError({ code: 403, message: 'Forbidden' });
+                }
+
+                return response.json();
+            })
+            .then(data => {
+                console.log('profile view', data);
+            });
+    }, []);
 
   return (
     <div className="registration-page">
