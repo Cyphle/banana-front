@@ -1,7 +1,7 @@
 # Banana
 
 ## TODO
-1. Get profile /profiles
+1. Get profile /profiles > OK
 2. Register
 3. Login
 4. Logout
