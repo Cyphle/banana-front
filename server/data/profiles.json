@@ -2,8 +2,8 @@
   {
     "id": 1,
     "username": "john.doe",
-    "firstName": "John",
-    "lastName": "Doe",
-    "email": "john.doe@banana.fr"
-  }
+    "email": "john.doe@banana.fr",
+    "first_name": "John",
+    "last_name": "Doe"
+  },
 ]
